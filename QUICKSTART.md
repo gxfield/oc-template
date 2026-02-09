@@ -60,7 +60,12 @@ Paid: `- [x] Bill Name | $Amount | Due: YYYY-MM-DD | Paid: YYYY-MM-DD`
 
 Format: `- Day: Meal description` (all 7 days, Monday-Sunday)
 
-- **"What's for dinner?"** Get today's day name from `node calendar/calendar.js now`, find matching line
+- **"What's for dinner?"** Get today's day from `node calendar/calendar.js now`, find matching line
+- **"What's for dinner tomorrow?"** Get today, compute next day, find matching line
+- **Set meal:** Read file, replace `- Day: ...` line, write back. Keep all 7 days.
+- **Set no day given:** "set dinner to pizza" = assume tonight
+- **Shopping from meals:** Read planned meals, propose ingredient list, ask before adding to shopping.md
+- Do NOT auto-add ingredients -- always confirm with user first
 
 ## Quick Capture
 
