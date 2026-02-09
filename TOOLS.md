@@ -191,9 +191,127 @@ node calendar.js update EVENT_ID summary "New Title"
 
 ### Briefing
 
-**Input:** "briefing" / "status" / "house status"
-**Action:** Combine: today's calendar + todos + shopping + recent notes
-**Response format:** Structured summary with sections for each area
+Briefing provides a comprehensive household summary combining calendar, todos, shopping, meals, and bills. The output is formatted for Telegram (emoji headers, bullet lists, no markdown tables).
+
+#### Trigger Phrase Table
+
+| Trigger Pattern | Action |
+|---|---|
+| "briefing", "morning briefing", "evening briefing" | Full household briefing |
+| "status", "house status", "household status" | Full household briefing |
+| "what's going on", "catch me up", "what did I miss" | Full household briefing |
+
+#### Data Assembly Steps
+
+The agent must gather data from these 5 sources in order:
+
+1. **Calendar:** Run `node calendar/calendar.js today` to get today's events
+2. **Todos:** Read `household/todos.md`, extract incomplete items (lines with `- [ ]`)
+3. **Shopping:** Read `household/shopping.md`, extract all items
+4. **Meals:** Get today's day name from `node calendar/calendar.js now`, read `household/meals/this-week.md`, find matching day line
+5. **Bills:** Read `household/bills.md`, extract unpaid bills (`- [ ]` lines), filter to those with due date within next 7 days (compare to today's Pacific date from `node calendar/calendar.js now`)
+
+#### Output Format Template (Telegram-friendly)
+
+The output must use emoji headers and bullet lists -- NO markdown tables. Template:
+
+```
+Here's your briefing for {Day, Month Date}:
+
+📅 Calendar
+{If events: bullet list of events with times}
+{If no events: "Nothing on the calendar today!"}
+
+✅ Todos ({count} pending)
+{Bullet list of incomplete items}
+{If none: "All clear!"}
+
+🛒 Shopping List ({count} items)
+{Bullet list of items}
+{If none: "Shopping list is empty!"}
+
+🍽️ Tonight's Dinner
+{Meal from this-week.md}
+{If "No plan": "No dinner planned. Want me to set something?"}
+
+💰 Bills Due Soon
+{Bullet list of unpaid bills due within 7 days with amount and due date}
+{If none: "No bills due this week!"}
+```
+
+#### Input/Output Examples
+
+**Example 1 - Full briefing with data:**
+
+**Input:** "morning briefing"
+**Action:** Run `node calendar/calendar.js today`, read todos.md/shopping.md/this-week.md/bills.md, assemble output
+**Response:**
+```
+Here's your briefing for Sunday, February 9:
+
+📅 Calendar
+• 10:00 AM - Brunch with Sarah
+• 3:00 PM - Grocery shopping
+
+✅ Todos (3 pending)
+• Fix the kitchen faucet
+• Replace air filter in HVAC
+• Organize garage shelves
+
+🛒 Shopping List (5 items)
+• Whole milk
+• Bananas
+• Chicken breast
+• Pasta
+• Olive oil
+
+🍽️ Tonight's Dinner
+Leftover buffet
+
+💰 Bills Due Soon
+• Electric Bill: $145.00 due Feb 15
+• Water Bill: $62.50 due Feb 20
+```
+
+**Example 2 - Briefing with empty sections:**
+
+**Input:** "status"
+**Action:** Same data gathering steps
+**Response:**
+```
+Here's your briefing for Monday, February 10:
+
+📅 Calendar
+Nothing on the calendar today!
+
+✅ Todos (0 pending)
+All clear!
+
+🛒 Shopping List (0 items)
+Shopping list is empty!
+
+🍽️ Tonight's Dinner
+No dinner planned. Want me to set something?
+
+💰 Bills Due Soon
+No bills due this week!
+```
+
+#### DO / DO NOT for Briefing
+
+| DO | DO NOT | WHY |
+|---|---|---|
+| Use `node calendar/calendar.js today` for calendar events | Use `list` or `upcoming` | `today` gives correct Pacific day boundaries |
+| Get today's date from `node calendar/calendar.js now` for bill date comparison | Use `date` command | System clock is UTC |
+| Use bullet lists with emoji headers | Use markdown tables | Telegram doesn't render markdown tables |
+| Show all 5 sections even if empty | Skip empty sections | User expects consistent format |
+| Show bill amounts and due dates | Show only bill names | User needs to know how much and when |
+
+#### Edge Cases
+
+- **"morning briefing" vs "evening briefing":** Same content (no time-based variation for v1)
+- **Bills due today:** Include in "Bills Due Soon" (today counts as within 7 days)
+- **No data in any source:** Still show all 5 section headers with empty-state messages
 
 ### Help
 
