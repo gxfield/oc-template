@@ -61,10 +61,11 @@ Plans:
   2. User can ask "what's for dinner tonight" and get the correct meal from the plan
   3. User can generate shopping list items directly from the meal plan
   4. meals/this-week.md has a structured format that LLMs reliably parse
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] TBD (to be defined during planning)
+- [ ] 03-01-PLAN.md — Add Meal Planning command handlers to TOOLS.md with trigger phrases and parsing examples
+- [ ] 03-02-PLAN.md — Expand Meals in QUICKSTART.md and add meal planning to AGENTS.md startup checklist
 
 ### Phase 4: Bill Reminders
 **Goal**: Users can track bills with due dates and query upcoming payments
@@ -95,12 +96,12 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Instruction Hardening | 3/3 | ✓ Complete | 2026-02-09 |
-| 2. Quick Capture | 2/2 | ✓ Complete | 2026-02-09 |
-| 3. Meal Planning | 0/TBD | Not started | - |
+| 1. Instruction Hardening | 3/3 | Complete | 2026-02-09 |
+| 2. Quick Capture | 2/2 | Complete | 2026-02-09 |
+| 3. Meal Planning | 0/2 | Not started | - |
 | 4. Bill Reminders | 0/TBD | Not started | - |
 | 5. Briefing System | 0/TBD | Not started | - |
