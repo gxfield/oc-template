@@ -89,10 +89,11 @@ Plans:
   1. User can request a combined briefing showing today's calendar, pending todos, shopping list, and meal plan
   2. Briefing output is formatted for Telegram with no markdown tables and natural emoji usage
   3. TOOLS.md documents the briefing command with exact trigger phrases
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] TBD (to be defined during planning)
+- [ ] 05-01-PLAN.md — Expand Briefing command handler in TOOLS.md with trigger phrases, output template, and assembly steps
+- [ ] 05-02-PLAN.md — Add Briefing to QUICKSTART.md and AGENTS.md startup checklist
 
 ## Progress
 
