@@ -293,6 +293,99 @@ When user intent is unclear, apply these rules:
 
 ---
 
+## Meal Planning
+
+Meal Planning handlers enable setting weekly dinner plans, querying tonight's meal, and generating shopping lists from planned meals. The workflow follows the same pattern as Quick Capture: recognize natural language, execute file operations, confirm briefly.
+
+### Trigger Phrase Table
+
+| Trigger Pattern | Action |
+|---|---|
+| "set Monday to lasagna", "Monday dinner: lasagna" | Update this-week.md for that day |
+| "set this week's meals", "meal plan for the week" | Update multiple days in this-week.md |
+| "what's for dinner", "what's for dinner tonight", "dinner tonight" | Look up today's meal |
+| "what's for dinner tomorrow", "dinner tomorrow" | Look up tomorrow's meal |
+| "what are the meals this week", "show meal plan" | Show full week's plan |
+| "shopping list from meals", "what do I need for this week's meals" | Generate ingredient list from meal plan |
+
+### Parsing Rules for Setting Meals
+
+1. Get the target day name (must be full: Monday, Tuesday, etc.)
+2. Read `household/meals/this-week.md`
+3. Find the line starting with `- {Day}:` and replace the meal description
+4. Write the complete file back (preserve all 7 days)
+5. If user sets multiple days at once, update all specified lines
+
+### Parsing Rules for Querying Meals
+
+- **"tonight" / "today":** Get current day name from `node calendar/calendar.js now`, find matching line in this-week.md
+- **"tomorrow":** Get current day name from `node calendar/calendar.js now`, compute next day, find matching line
+- **"this week" / "show meals":** Read and display all 7 lines
+
+### Parsing Rules for Shopping List Generation
+
+1. Read all non-"No plan" entries from this-week.md
+2. For each meal, the agent should identify likely ingredients based on the meal name
+3. Present the ingredient list to the user for confirmation/editing before adding to shopping.md
+4. **DO NOT auto-add to shopping.md without confirmation** (meals are vague descriptions, not recipes)
+5. Format: show a proposed list, ask "Want me to add these to the shopping list?"
+
+### Input/Output Examples
+
+**Example 1 - Set single day:**
+
+**Input:** "set Thursday dinner to chicken parmesan"
+**Action:** Read this-week.md, replace Thursday line with `- Thursday: Chicken parmesan`, write back
+**Response:** "Updated! Thursday dinner is now chicken parmesan"
+
+**Example 2 - Query tonight:**
+
+**Input:** "what's for dinner tonight"
+**Action:** Run `node calendar/calendar.js now` to get day name (e.g., "Sunday"), read this-week.md, find `- Sunday: Leftover buffet`
+**Response:** "Tonight's dinner: Leftover buffet"
+
+**Example 3 - No plan for today:**
+
+**Input:** "what's for dinner"
+**Action:** Get day name, find `- Wednesday: No plan`
+**Response:** "No dinner planned for tonight. Want me to set something?"
+
+**Example 4 - Set multiple days:**
+
+**Input:** "set meals for the week: Monday tacos, Tuesday pasta, Wednesday salmon"
+**Action:** Update three lines in this-week.md, leave other days unchanged
+**Response:** "Updated 3 meals! Monday: Tacos, Tuesday: Pasta, Wednesday: Salmon"
+
+**Example 5 - Shopping from meals:**
+
+**Input:** "make a shopping list from this week's meals"
+**Action:** Read this-week.md, identify ingredients for each planned meal, present list
+**Response:** "Based on this week's meals, here's what you might need: [ingredient list]. Want me to add these to the shopping list?"
+
+**Example 6 - Show full week:**
+
+**Input:** "show the meal plan"
+**Action:** Read this-week.md, format all 7 days
+**Response:** List all days with meals
+
+### DO / DO NOT for Meal Planning
+
+| DO | DO NOT | WHY |
+|---|---|---|
+| Get today's day name from `node calendar/calendar.js now` | Use `date` command or guess the day | System clock is UTC; wrong day after 4 PM Pacific |
+| Keep all 7 days in the file when updating | Delete unmentioned days | File must always have Mon-Sun entries |
+| Ask for confirmation before adding meal ingredients to shopping | Auto-add ingredients to shopping.md | Meal names are vague; "tacos" could mean many different ingredients |
+| Use full day names (Monday, Tuesday) | Use abbreviations (Mon, Tue) | Format header requires full day names |
+| Capitalize meal description | Leave lowercase | Consistency with file format |
+
+### Edge Cases
+
+- **"what's for dinner" when day is "No plan"** → Suggest setting a meal
+- **"set dinner to pizza" with no day specified** → Assume tonight (get from `node calendar/calendar.js now`)
+- **"clear Thursday" or "no dinner Thursday"** → Set to "No plan"
+
+---
+
 ## Edge Cases for Telegram Command Parsing
 
 ### Ambiguous commands
