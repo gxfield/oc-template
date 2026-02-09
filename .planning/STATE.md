@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-09)
 
 **Core value:** The agent must reliably understand and execute household management tasks -- even when powered by cheaper LLMs -- without making mistakes with timezones, commands, or file formats.
-**Current focus:** Phase 3 - Meal Planning
+**Current focus:** Phase 5 - Briefing System
 
 ## Current Position
 
-Phase: 3 of 5 (Meal Planning)
-Plan: 3 of 3
-Status: Complete
-Last activity: 2026-02-09 — Completed plan 03-03: Calendar Day Name Output
+Phase: 5 of 5 (Briefing System)
+Plan: 2 of 2
+Status: In Progress
+Last activity: 2026-02-09 — Completed plan 05-01: Briefing Documentation
 
-Progress: [███████████████░░░░░] 61%
+Progress: [████████████████████░] 82%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Average duration: 1.4 minutes
-- Total execution time: 0.18 hours
+- Total plans completed: 9
+- Average duration: 1.3 minutes
+- Total execution time: 0.19 hours
 
 **By Phase:**
 
@@ -30,6 +30,7 @@ Progress: [███████████████░░░░░] 61%
 | 01-instruction-hardening | 3 | 297s | 99s |
 | 02-quick-capture | 2 | 287s | 143.5s |
 | 03-meal-planning | 3 | 222s | 74s |
+| 05-briefing-system | 1 | 68s | 68s |
 
 ## Accumulated Context
 
@@ -57,6 +58,10 @@ Recent decisions affecting current work:
 - [Phase 03-meal-planning]: Meal Planning mention placed after Quick Capture in AGENTS.md Step 4 for consistency
 - [Phase 03-meal-planning]: DO NOT auto-add rule explicitly stated in QUICKSTART.md to prevent vague ingredient additions
 - [Phase 03-meal-planning]: calendar.js now command outputs full day name (Monday-Sunday) for meal plan lookups using Intl.DateTimeFormat long weekday format
+- [Phase 05-briefing-system]: Briefing output uses emoji headers and bullet lists (no markdown tables) for Telegram compatibility
+- [Phase 05-briefing-system]: Bills due within 7 days included in briefing (today counts as within window)
+- [Phase 05-briefing-system]: No time-based variation between morning and evening briefings in v1
+- [Phase 05-briefing-system]: All 5 sections shown even if empty for consistent format
 
 ### Pending Todos
 
@@ -69,7 +74,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-09 (plan execution)
-Stopped at: Completed 03-03-PLAN.md
+Stopped at: Completed 05-01-PLAN.md
 Resume file: None
 
 ---
