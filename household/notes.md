@@ -1,0 +1,17 @@
+<!-- FORMAT:
+  Purpose: Quick household notes with timestamps
+  Line format: "- [YYYY-MM-DD h:mm AM/PM PT] Note text"
+  To add: Append "- [TIMESTAMP PT] Note text" at the end. Get current Pacific time from `node calendar.js now`.
+  Rules:
+    - Every note MUST have a Pacific timestamp
+    - Timestamp format: YYYY-MM-DD h:mm AM/PM PT (e.g., 2026-02-09 10:30 PM PT)
+    - Get time from `node calendar.js now`, NOT from `date` command (which returns UTC)
+    - One note per line
+    - Preserve all existing notes
+  Example line: - [2026-02-09 10:30 PM PT] Plumber's number is 555-1234
+-->
+
+## Quick Household Notes
+
+- [2026-02-09 10:30 PM PT] Plumber's number is 555-1234
+- [2026-02-08 3:45 PM PT] Vet appointment scheduled for Max next Tuesday

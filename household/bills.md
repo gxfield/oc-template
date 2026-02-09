@@ -1,0 +1,22 @@
+<!-- FORMAT:
+  Purpose: Bill tracking with due dates and payment status
+  Line format: "- [ ] Bill Name | $Amount | Due: YYYY-MM-DD" (unpaid) or "- [x] Bill Name | $Amount | Due: YYYY-MM-DD | Paid: YYYY-MM-DD" (paid)
+  To add: Append a new line with bill details in the format above
+  To mark paid: Change "- [ ]" to "- [x]" and append "| Paid: YYYY-MM-DD" with today's Pacific date
+  To query upcoming: Filter lines with "- [ ]" (unpaid) and compare due date to current Pacific date
+  Rules:
+    - Use pipe "|" as field separator
+    - Dollar amounts include "$" prefix
+    - Dates in YYYY-MM-DD format
+    - Sort by due date (earliest first) when rewriting
+    - Get current date from `node calendar.js now`
+  Example line: - [ ] Electric Bill | $145.00 | Due: 2026-02-15
+  Example paid: - [x] Internet | $79.99 | Due: 2026-02-01 | Paid: 2026-02-01
+-->
+
+## Bills Tracker
+
+- [x] Internet | $79.99 | Due: 2026-02-01 | Paid: 2026-02-01
+- [ ] Electric Bill | $145.00 | Due: 2026-02-15
+- [ ] Water Bill | $62.50 | Due: 2026-02-20
+- [ ] Gas Bill | $88.00 | Due: 2026-02-28

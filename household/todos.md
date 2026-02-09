@@ -1,0 +1,19 @@
+<!-- FORMAT:
+  Purpose: Shared household task list
+  Line format: "- [ ] Task description" (incomplete) or "- [x] Task description" (complete)
+  To add: Append "- [ ] Task description" at the end of the list
+  To complete: Change "- [ ]" to "- [x]" on the matching line (case-insensitive match)
+  To remove: Delete the entire line
+  Rules:
+    - Always use "- [ ]" with a space inside brackets for incomplete tasks
+    - Always use "- [x]" with lowercase x for completed tasks
+    - One task per line
+    - Preserve all existing lines when modifying
+  Example line: - [ ] Fix the kitchen faucet
+-->
+
+## Shared Task List
+
+- [ ] Fix the kitchen faucet
+- [ ] Replace air filter in HVAC
+- [ ] Organize garage shelves
