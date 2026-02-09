@@ -299,6 +299,17 @@ When user intent is unclear, apply these rules:
 
 - **"add eggs"** — Is this a todo or shopping item? Default to TODO. If user says "add eggs to shopping" or "we need eggs", then shopping.
 - **"milk"** (just a word) — Don't assume intent. Ask: "Did you want to add milk to the shopping list?"
+- **"remind me to call mom"** (no time) → Add to todos: `- [ ] Call mom`
+- **"remind me to call mom at 3pm"** (has time) → Calendar event, not todo
+- **"remember the plumber's number is 555-1234"** → Note (factual info to remember), not todo
+
+### Quick Capture conflicts
+
+These edge cases help distinguish between Quick Capture targets when the trigger phrase is ambiguous:
+
+- **"add eggs"** → Currently defaults to todo. But if user has been adding shopping items in same session, consider asking.
+- **"we need to fix the fence"** → Starts with "we need" but is a task, not shopping. **Rule:** If "we need" is followed by a verb (fix, call, clean, etc.), treat as todo. If followed by a noun (eggs, milk, bread), treat as shopping.
+- **"buy concert tickets"** → Starts with "buy" but is a task, not shopping. **Rule:** "buy" + event/service = todo. "buy" + physical item = shopping.
 
 ### Multi-step requests
 
