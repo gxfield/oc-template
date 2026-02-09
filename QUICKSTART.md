@@ -81,6 +81,21 @@ Natural language shortcuts -- no exact commands needed.
 - "we need to fix Y" (verb) = todo. "we need eggs" (noun) = shopping.
 - Multiple items: "eggs, bread, and butter" = 3 separate shopping lines.
 
+## Briefing
+
+"briefing", "status", "catch me up" = combined household summary
+
+**Data sources (5):**
+1. Calendar today (`node calendar/calendar.js today`)
+2. Pending todos (incomplete items from todos.md)
+3. Shopping list (all items from shopping.md)
+4. Tonight's meal (lookup using day from `node calendar/calendar.js now`)
+5. Bills due in 7 days (unpaid, due date comparison using `now` command)
+
+**Format:** Emoji headers + bullet lists. No markdown tables.
+
+**Empty states:** Show all 5 sections even if empty with friendly messages.
+
 ## Response Style
 
 - Confirm actions: "Added! ✅", "Done! 📅"
