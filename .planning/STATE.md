@@ -5,29 +5,30 @@
 See: .planning/PROJECT.md (updated 2026-02-09)
 
 **Core value:** The agent must reliably understand and execute household management tasks -- even when powered by cheaper LLMs -- without making mistakes with timezones, commands, or file formats.
-**Current focus:** Phase 1 - Instruction Hardening
+**Current focus:** Phase 2 - Quick Capture
 
 ## Current Position
 
-Phase: 1 of 5 (Instruction Hardening)
-Plan: 3 of 3
-Status: Complete
-Last activity: 2026-02-09 — Completed plan 01-03: Create QUICKSTART.md single-page reference
+Phase: 2 of 5 (Quick Capture)
+Plan: 1 of 2
+Status: In Progress
+Last activity: 2026-02-09 — Completed plan 02-01: Quick Capture Documentation
 
-Progress: [██████████] 100%
+Progress: [██████████████████░░] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 1.6 minutes
-- Total execution time: 0.08 hours
+- Total plans completed: 4
+- Average duration: 1.7 minutes
+- Total execution time: 0.11 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-instruction-hardening | 3 | 297s | 99s |
+| 02-quick-capture | 1 | 107s | 107s |
 
 ## Accumulated Context
 
@@ -40,6 +41,10 @@ Recent decisions affecting current work:
 - [Phase 01-instruction-hardening]: HTML comment format headers for household files
 - [Phase 01-instruction-hardening]: Numbered startup protocol in AGENTS.md
 - [Phase 01-instruction-hardening]: Created 70-line single-page QUICKSTART.md reference for cheap LLMs with inline timezone rules
+- [Phase 02-quick-capture]: Quick Capture section placed after Telegram Command Handlers for logical flow
+- [Phase 02-quick-capture]: Trigger phrase table format for quick LLM pattern matching
+- [Phase 02-quick-capture]: Verb vs noun parsing rule for 'we need' disambiguation
+- [Phase 02-quick-capture]: Event vs physical item rule for 'buy' disambiguation
 
 ### Pending Todos
 
@@ -52,7 +57,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-09 (plan execution)
-Stopped at: Completed 01-03-PLAN.md
+Stopped at: Completed 02-01-PLAN.md
 Resume file: None
 
 ---
