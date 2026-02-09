@@ -1,0 +1,13 @@
+{
+  "name": "workspace-home-assistant",
+  "version": "1.0.0",
+  "description": "Google Calendar integration for OpenClaw household assistant",
+  "main": "calendar.js",
+  "scripts": {
+    "list": "node calendar.js list",
+    "add": "node calendar.js add"
+  },
+  "dependencies": {
+    "googleapis": "^134.0.0"
+  }
+}
