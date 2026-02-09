@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Quick Capture** - Fast input patterns for notes, todos, shopping (completed 2026-02-09)
 - [x] **Phase 3: Meal Planning** - Weekly meal planning with shopping list integration (completed 2026-02-09)
 - [ ] **Phase 4: Bill Reminders** - Structured bill tracking with due date queries
-- [ ] **Phase 5: Briefing System** - Unified daily briefing command combining all household data
+- [x] **Phase 5: Briefing System** - Unified daily briefing command combining all household data (completed 2026-02-09)
 
 ## Phase Details
 
@@ -92,8 +92,8 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 05-01-PLAN.md — Expand Briefing command handler in TOOLS.md with trigger phrases, output template, and assembly steps
-- [ ] 05-02-PLAN.md — Add Briefing to QUICKSTART.md and AGENTS.md startup checklist
+- [x] 05-01-PLAN.md — Expand Briefing command handler in TOOLS.md with trigger phrases, output template, and assembly steps
+- [x] 05-02-PLAN.md — Add Briefing to QUICKSTART.md and AGENTS.md startup checklist
 
 ## Progress
 
@@ -106,4 +106,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | 2. Quick Capture | 2/2 | Complete | 2026-02-09 |
 | 3. Meal Planning | 3/3 | Complete | 2026-02-09 |
 | 4. Bill Reminders | 0/TBD | Not started | - |
-| 5. Briefing System | 0/TBD | Not started | - |
+| 5. Briefing System | 2/2 | Complete | 2026-02-09 |
