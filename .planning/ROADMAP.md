@@ -12,7 +12,7 @@ Transform the workspace from functional to bulletproof for cheap LLMs and both h
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Instruction Hardening** - Make all instruction files foolproof for cheap LLMs
+- [x] **Phase 1: Instruction Hardening** - Make all instruction files foolproof for cheap LLMs (completed 2026-02-09)
 - [ ] **Phase 2: Quick Capture** - Fast input patterns for notes, todos, shopping
 - [ ] **Phase 3: Meal Planning** - Weekly meal planning with shopping list integration
 - [ ] **Phase 4: Bill Reminders** - Structured bill tracking with due date queries
@@ -33,9 +33,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans:** 3 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Harden TOOLS.md with DO/DO NOT tables and Telegram parsing examples
-- [ ] 01-02-PLAN.md — Add format headers to household files and rewrite AGENTS.md startup checklist
-- [ ] 01-03-PLAN.md — Create QUICKSTART.md single-page reference
+- [x] 01-01-PLAN.md — Harden TOOLS.md with DO/DO NOT tables and Telegram parsing examples
+- [x] 01-02-PLAN.md — Add format headers to household files and rewrite AGENTS.md startup checklist
+- [x] 01-03-PLAN.md — Create QUICKSTART.md single-page reference
 
 ### Phase 2: Quick Capture
 **Goal**: Users can capture notes, todos, and shopping items in natural language without opening files
@@ -98,7 +98,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Instruction Hardening | 0/3 | Planned | - |
+| 1. Instruction Hardening | 3/3 | ✓ Complete | 2026-02-09 |
 | 2. Quick Capture | 0/TBD | Not started | - |
 | 3. Meal Planning | 0/TBD | Not started | - |
 | 4. Bill Reminders | 0/TBD | Not started | - |
