@@ -147,7 +147,7 @@ node calendar.js update EVENT_ID summary "New Title"
 
 **Parsing Examples:**
 
-**Input:** "add fix the fence"
+**Input:** "add fix the fence" / "todo fix the fence"
 **Action:** Read household/todos.md, append "- [ ] Fix the fence", write file back
 **Response:** "Added! ✅ Fix the fence"
 
@@ -199,6 +199,97 @@ node calendar.js update EVENT_ID summary "New Title"
 
 **Input:** "help" / "commands"
 **Action:** Show available commands
+
+---
+
+## Quick Capture
+
+Quick Capture enables natural language triggers for fast note/todo/shopping capture. Instead of requiring exact command syntax, cheap LLMs can recognize conversational patterns and route to the correct file operation.
+
+### Trigger Phrase Table
+
+| Trigger Pattern | Target File | Action |
+|---|---|---|
+| "remember X", "note: X", "note X", "don't forget X" | `household/notes.md` | Append with Pacific timestamp |
+| "add X to shopping", "we need X", "pick up X", "buy X", "X to the shopping list" | `household/shopping.md` | Append as list item (capitalize first letter) |
+| "todo X", "todo: X", "I need to X", "remind me to X" (no time) | `household/todos.md` | Append as unchecked task |
+
+### Parsing Rules
+
+**Notes:**
+1. Get current Pacific time: `node calendar.js now`
+2. Format: `- [YYYY-MM-DD h:mm AM/PM PT] {note text}`
+3. Append to `household/notes.md`
+
+**Shopping:**
+1. Capitalize first letter of each item
+2. Parse commas and "and" into separate items
+3. Format: `- {Item name}` (one per line)
+4. Append to `household/shopping.md`
+
+**Todos:**
+1. Format: `- [ ] {task description}`
+2. Append to `household/todos.md`
+
+### Input/Output Examples
+
+**Notes:**
+
+**Input:** "remember the wifi password is fish1234"
+**Action:** Read `household/notes.md`, get Pacific time from `node calendar.js now`, append `- [2026-02-09 8:15 PM PT] The wifi password is fish1234`
+**Response:** "Noted! 📝"
+
+**Input:** "don't forget to tell mom about the party"
+**Action:** Append `- [2026-02-09 8:16 PM PT] Don't forget to tell mom about the party` to notes.md
+**Response:** "Got it, I'll remember! 📝"
+
+**Shopping:**
+
+**Input:** "we need eggs and milk"
+**Action:** Read `household/shopping.md`, append two lines: `- Eggs` and `- Milk`
+**Response:** "Added 2 items to shopping! 🛒 Eggs, Milk"
+
+**Input:** "pick up dog food"
+**Action:** Append `- Dog food` to shopping.md
+**Response:** "Added dog food to the shopping list! 🛒"
+
+**Todos:**
+
+**Input:** "todo fix the gate"
+**Action:** Append `- [ ] Fix the gate` to todos.md
+**Response:** "Added! ✅ Fix the gate"
+
+**Input:** "I need to call the dentist"
+**Action:** Append `- [ ] Call the dentist` to todos.md
+**Response:** "Added! ✅ Call the dentist"
+
+### Disambiguation Rules
+
+When user intent is unclear, apply these rules:
+
+**Time-based disambiguation:**
+- **"remind me to X at 3pm"** → Calendar event (has specific time)
+- **"remind me to X"** (no time) → Todo item
+
+**Target-based disambiguation:**
+- **"add X"** (no target specified) → Default to todo. If X is clearly a food/grocery item (e.g., "add eggs"), ask: "Did you want to add eggs to the shopping list or as a todo?"
+
+**Verb vs noun after "we need":**
+- **"we need to fix the fence"** → Todo (verb phrase)
+- **"we need milk"** → Shopping (noun/item)
+
+**"buy" context:**
+- **"buy concert tickets"** → Todo (event/service)
+- **"buy milk"** → Shopping (physical grocery item)
+
+### DO / DO NOT for Quick Capture
+
+| DO | DO NOT | WHY |
+|---|---|---|
+| Recognize natural language triggers | Ask "which file?" when intent is clear | Users expect natural conversation, not rigid syntax |
+| Confirm briefly: "Noted! 📝" or "Added!" | Give detailed explanations | Quick capture should be fast |
+| Parse "eggs and milk" into 2 shopping items | Add "eggs and milk" as a single item | User expects separate list items |
+| Use `node calendar.js now` for timestamps | Use `date` command or skip timestamps | System clock is UTC; notes need Pacific time |
 
 ---
 
