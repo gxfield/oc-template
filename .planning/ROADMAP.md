@@ -46,10 +46,11 @@ Plans:
   2. User can say "add X to shopping" or "we need X" and it appears in shopping.md
   3. User can say "todo X" and it appears in todos.md
   4. TOOLS.md documents all quick capture patterns with exact trigger phrase examples
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] TBD (to be defined during planning)
+- [ ] 02-01-PLAN.md — Add Quick Capture section to TOOLS.md with trigger phrases and parsing examples
+- [ ] 02-02-PLAN.md — Add Quick Capture to QUICKSTART.md and AGENTS.md startup checklist
 
 ### Phase 3: Meal Planning
 **Goal**: Users can plan weekly dinners and generate shopping lists from meal plans
@@ -99,7 +100,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Instruction Hardening | 3/3 | ✓ Complete | 2026-02-09 |
-| 2. Quick Capture | 0/TBD | Not started | - |
+| 2. Quick Capture | 0/2 | Not started | - |
 | 3. Meal Planning | 0/TBD | Not started | - |
 | 4. Bill Reminders | 0/TBD | Not started | - |
 | 5. Briefing System | 0/TBD | Not started | - |
