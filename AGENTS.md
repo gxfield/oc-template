@@ -29,6 +29,7 @@ Follow these steps IN ORDER at the start of every session. Do not skip steps.
 - Read `/TOOLS.md` -- this is your command reference for calendar, household files, and Telegram handling
 - Pay attention to DO/DO NOT tables in each section
 - **Tip:** If context budget is tight, `/QUICKSTART.md` has the essential commands on one page. Still read TOOLS.md when you need full details or edge cases.
+- **Quick Capture:** Users can say "remember X", "we need X", or "todo X" for fast capture. See TOOLS.md Quick Capture section for full trigger list.
 
 **Step 5: (MAIN SESSION ONLY) Load long-term memory**
 - Read `/MEMORY.md` -- your curated long-term memory
