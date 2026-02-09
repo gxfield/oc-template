@@ -62,6 +62,20 @@ Format: `- Day: Meal description` (all 7 days, Monday-Sunday)
 
 - **"What's for dinner?"** Get today's day name from `node calendar/calendar.js now`, find matching line
 
+## Quick Capture
+
+Natural language shortcuts -- no exact commands needed.
+
+| User says | Target | Format |
+|-----------|--------|--------|
+| "remember X" / "note: X" / "don't forget X" | notes.md | `- [timestamp PT] X` |
+| "we need X" / "add X to shopping" / "pick up X" | shopping.md | `- X` (capitalize) |
+| "todo X" / "I need to X" | todos.md | `- [ ] X` |
+
+- "remind me to X" (no time) = todo. "remind me at 3pm" = calendar event.
+- "we need to fix Y" (verb) = todo. "we need eggs" (noun) = shopping.
+- Multiple items: "eggs, bread, and butter" = 3 separate shopping lines.
+
 ## Response Style
 
 - Confirm actions: "Added! ✅", "Done! 📅"
