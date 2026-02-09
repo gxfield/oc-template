@@ -1,5 +1,7 @@
 # TOOLS.md - Household Assistant Configuration
 
+> **Quick reference:** See `QUICKSTART.md` for a condensed single-page command reference.
+
 ## 🏠 Workspace Location
 `/data/.openclaw/workspace-home-assistant/`
 
