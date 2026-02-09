@@ -13,7 +13,7 @@ Transform the workspace from functional to bulletproof for cheap LLMs and both h
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Instruction Hardening** - Make all instruction files foolproof for cheap LLMs (completed 2026-02-09)
-- [ ] **Phase 2: Quick Capture** - Fast input patterns for notes, todos, shopping
+- [x] **Phase 2: Quick Capture** - Fast input patterns for notes, todos, shopping (completed 2026-02-09)
 - [ ] **Phase 3: Meal Planning** - Weekly meal planning with shopping list integration
 - [ ] **Phase 4: Bill Reminders** - Structured bill tracking with due date queries
 - [ ] **Phase 5: Briefing System** - Unified daily briefing command combining all household data
@@ -49,8 +49,8 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Add Quick Capture section to TOOLS.md with trigger phrases and parsing examples
-- [ ] 02-02-PLAN.md — Add Quick Capture to QUICKSTART.md and AGENTS.md startup checklist
+- [x] 02-01-PLAN.md — Add Quick Capture section to TOOLS.md with trigger phrases and parsing examples
+- [x] 02-02-PLAN.md — Add Quick Capture to QUICKSTART.md and AGENTS.md startup checklist
 
 ### Phase 3: Meal Planning
 **Goal**: Users can plan weekly dinners and generate shopping lists from meal plans
@@ -100,7 +100,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Instruction Hardening | 3/3 | ✓ Complete | 2026-02-09 |
-| 2. Quick Capture | 0/2 | Not started | - |
+| 2. Quick Capture | 2/2 | ✓ Complete | 2026-02-09 |
 | 3. Meal Planning | 0/TBD | Not started | - |
 | 4. Bill Reminders | 0/TBD | Not started | - |
 | 5. Briefing System | 0/TBD | Not started | - |
