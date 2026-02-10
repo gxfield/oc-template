@@ -203,13 +203,15 @@ Briefing provides a comprehensive household summary combining calendar, todos, s
 
 #### Data Assembly Steps
 
-The agent must gather data from these 5 sources in order:
+The agent must gather data from these 7 sources in order:
 
 1. **Calendar:** Run `node calendar/calendar.js today` to get today's events
 2. **Todos:** Read `household/todos.md`, extract incomplete items (lines with `- [ ]`)
 3. **Shopping:** Read `household/shopping.md`, extract all items
 4. **Meals:** Get today's day name from `node calendar/calendar.js now`, read `household/meals/this-week.md`, find matching day line
 5. **Bills:** Read `household/bills.md`, extract unpaid bills (`- [ ]` lines), filter to those with due date within next 7 days (compare to today's Pacific date from `node calendar/calendar.js now`)
+6. **Meat Reminder:** After getting tonight's dinner (step 4), check if the meal description contains any meat keyword: chicken, beef, pork, salmon, steak, turkey, lamb, fish, shrimp. Case-insensitive match. If match found, include meat reminder section. If no match or no dinner planned ("No plan"), skip entirely.
+7. **Recipe Inspiration:** Fetch RSS feed from `https://peaceloveandlowcarb.com/feed/`, extract 2-3 random recipe entries (title + link), format as bullet list.
 
 #### Output Format Template (Telegram-friendly)
 
@@ -237,6 +239,15 @@ Here's your briefing for {Day, Month Date}:
 💰 Bills Due Soon
 {Bullet list of unpaid bills due within 7 days with amount and due date}
 {If none: "No bills due this week!"}
+
+🥩 Dinner Prep
+Tonight's dinner is {meal} — don't forget to take meat out of the freezer!
+{This section ONLY appears if meat keyword found in tonight's dinner. Skip entirely otherwise.}
+
+🍳 Recipe Inspiration
+• {Recipe Title} — {URL}
+• {Recipe Title} — {URL}
+{Always show this section. Pick 2-3 random entries from the RSS feed.}
 ```
 
 #### Input/Output Examples
@@ -244,7 +255,7 @@ Here's your briefing for {Day, Month Date}:
 **Example 1 - Full briefing with data:**
 
 **Input:** "morning briefing"
-**Action:** Run `node calendar/calendar.js today`, read todos.md/shopping.md/this-week.md/bills.md, assemble output
+**Action:** Run `node calendar/calendar.js today`, read todos.md/shopping.md/this-week.md/bills.md, fetch RSS feed, assemble output
 **Response:**
 ```
 Here's your briefing for Sunday, February 9:
@@ -266,11 +277,19 @@ Here's your briefing for Sunday, February 9:
 • Olive oil
 
 🍽️ Tonight's Dinner
-Leftover buffet
+Grilled salmon with asparagus
 
 💰 Bills Due Soon
 • Electric Bill: $145.00 due Feb 15
 • Water Bill: $62.50 due Feb 20
+
+🥩 Dinner Prep
+Tonight's dinner is Grilled salmon with asparagus — don't forget to take meat out of the freezer!
+
+🍳 Recipe Inspiration
+• Keto Garlic Butter Chicken — https://peaceloveandlowcarb.com/garlic-butter-chicken/
+• Low Carb Beef Stroganoff — https://peaceloveandlowcarb.com/beef-stroganoff/
+• Crispy Pork Chops — https://peaceloveandlowcarb.com/pork-chops/
 ```
 
 **Example 2 - Briefing with empty sections:**
@@ -295,6 +314,10 @@ No dinner planned. Want me to set something?
 
 💰 Bills Due Soon
 No bills due this week!
+
+🍳 Recipe Inspiration
+• Keto Chicken Parmesan — https://peaceloveandlowcarb.com/chicken-parmesan/
+• Cauliflower Mac and Cheese — https://peaceloveandlowcarb.com/cauliflower-mac/
 ```
 
 #### DO / DO NOT for Briefing
@@ -304,14 +327,19 @@ No bills due this week!
 | Use `node calendar/calendar.js today` for calendar events | Use `list` or `upcoming` | `today` gives correct Pacific day boundaries |
 | Get today's date from `node calendar/calendar.js now` for bill date comparison | Use `date` command | System clock is UTC |
 | Use bullet lists with emoji headers | Use markdown tables | Telegram doesn't render markdown tables |
-| Show all 5 sections even if empty | Skip empty sections | User expects consistent format |
+| Show the original 5 sections plus Recipe Inspiration even if empty | Skip empty sections | User expects consistent format |
 | Show bill amounts and due dates | Show only bill names | User needs to know how much and when |
+| Check meat keywords case-insensitively against tonight's dinner description | Try to infer meat from meal names like "leftover" or "stir fry" without explicit keywords | Simple keyword match is reliable for cheap LLMs; inference is error-prone |
+| Fetch 2-3 random recipes from the RSS feed each time | Cache or repeat the same recipes | Variety keeps the section interesting |
 
 #### Edge Cases
 
 - **"morning briefing" vs "evening briefing":** Same content (no time-based variation for v1)
 - **Bills due today:** Include in "Bills Due Soon" (today counts as within 7 days)
-- **No data in any source:** Still show all 5 section headers with empty-state messages
+- **No data in any source:** Still show the original 5 sections plus Recipe Inspiration with empty-state messages
+- **"No dinner planned" or "No plan" for tonight:** Skip Meat Reminder entirely (do not show section header)
+- **Dinner has no meat keywords (e.g., "Pasta with marinara"):** Skip Meat Reminder entirely
+- **RSS feed unavailable:** Show "Could not fetch recipes" instead of crashing
 
 ### Help
 
