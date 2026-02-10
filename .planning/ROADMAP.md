@@ -17,6 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Meal Planning** - Weekly meal planning with shopping list integration (completed 2026-02-09)
 - [ ] **Phase 4: Bill Reminders** - Structured bill tracking with due date queries
 - [x] **Phase 5: Briefing System** - Unified daily briefing command combining all household data (completed 2026-02-09)
+- [ ] **Phase 6: Daily Morning Briefing** - Automated briefing, enhanced content, and save recipe
 
 ## Phase Details
 
@@ -96,18 +97,23 @@ Plans:
 - [x] 05-02-PLAN.md — Add Briefing to QUICKSTART.md and AGENTS.md startup checklist
 
 ### Phase 6: Daily Morning Briefing
-**Goal**: Agent automatically sends a morning briefing during heartbeat polls without being asked
+**Goal**: Agent automatically sends an enhanced morning briefing (with meat reminder and recipe inspiration) during heartbeat polls, plus save recipe quick capture
 **Depends on**: Phase 5
+**Requirements**: NOTF-02
 **Success Criteria** (what must be TRUE):
   1. HEARTBEAT.md contains a morning briefing task that fires during 7-10 AM Pacific heartbeats
   2. Automated briefing uses dedup via heartbeat-state.json to prevent duplicate sends
-  3. TOOLS.md documents the automated morning briefing with timing rules and DO/DO NOT table
-  4. QUICKSTART.md and AGENTS.md reference the automated briefing for cheap LLM discoverability
+  3. Briefing expanded from 5 to 7 sections (meat reminder + recipe inspiration)
+  4. Meat reminder appears conditionally when tonight's dinner has meat keywords
+  5. Recipe inspiration fetches 2-3 random recipes from peaceloveandlowcarb.com/feed/
+  6. Users can say "save recipe [text]" to store recipes in favourites.md
+  7. TOOLS.md documents all new features with DO/DO NOT tables
+  8. QUICKSTART.md and AGENTS.md reference all new features for cheap LLM discoverability
 **Plans:** 2 plans
 
 Plans:
-- [ ] 06-01-PLAN.md — Configure HEARTBEAT.md with morning briefing task and document in TOOLS.md
-- [ ] 06-02-PLAN.md — Add automated morning briefing to QUICKSTART.md and AGENTS.md
+- [ ] 06-01-PLAN.md — Add enhanced briefing sections (meat reminder, recipe inspiration) and automated morning briefing to TOOLS.md + HEARTBEAT.md
+- [ ] 06-02-PLAN.md — Add save recipe to TOOLS.md, create favourites.md, update QUICKSTART.md and AGENTS.md
 
 ## Progress
 
