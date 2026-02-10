@@ -95,10 +95,24 @@ Plans:
 - [x] 05-01-PLAN.md — Expand Briefing command handler in TOOLS.md with trigger phrases, output template, and assembly steps
 - [x] 05-02-PLAN.md — Add Briefing to QUICKSTART.md and AGENTS.md startup checklist
 
+### Phase 6: Daily Morning Briefing
+**Goal**: Agent automatically sends a morning briefing during heartbeat polls without being asked
+**Depends on**: Phase 5
+**Success Criteria** (what must be TRUE):
+  1. HEARTBEAT.md contains a morning briefing task that fires during 7-10 AM Pacific heartbeats
+  2. Automated briefing uses dedup via heartbeat-state.json to prevent duplicate sends
+  3. TOOLS.md documents the automated morning briefing with timing rules and DO/DO NOT table
+  4. QUICKSTART.md and AGENTS.md reference the automated briefing for cheap LLM discoverability
+**Plans:** 2 plans
+
+Plans:
+- [ ] 06-01-PLAN.md — Configure HEARTBEAT.md with morning briefing task and document in TOOLS.md
+- [ ] 06-02-PLAN.md — Add automated morning briefing to QUICKSTART.md and AGENTS.md
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -107,3 +121,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | 3. Meal Planning | 3/3 | Complete | 2026-02-09 |
 | 4. Bill Reminders | 0/TBD | Not started | - |
 | 5. Briefing System | 2/2 | Complete | 2026-02-09 |
+| 6. Daily Morning Briefing | 0/2 | Not started | - |
