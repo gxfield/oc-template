@@ -85,16 +85,34 @@ Natural language shortcuts -- no exact commands needed.
 
 "briefing", "status", "catch me up" = combined household summary
 
-**Data sources (5):**
+**Data sources (7):**
 1. Calendar today (`node calendar/calendar.js today`)
 2. Pending todos (incomplete items from todos.md)
 3. Shopping list (all items from shopping.md)
 4. Tonight's meal (lookup using day from `node calendar/calendar.js now`)
 5. Bills due in 7 days (unpaid, due date comparison using `now` command)
+6. Meat reminder (if tonight's dinner has meat keywords: chicken, beef, pork, salmon, etc.)
+7. Recipe inspiration (2-3 random recipes from peaceloveandlowcarb.com/feed/)
 
 **Format:** Emoji headers + bullet lists. No markdown tables.
 
-**Empty states:** Show all 5 sections even if empty with friendly messages.
+**Empty states:** Show original 5 sections plus Recipe Inspiration even if empty. Meat reminder section is skipped if no meat keywords found.
+
+## Automated Morning Briefing
+
+Sent proactively during heartbeat polls, 7-10 AM Pacific. Same 7-section format.
+- Dedup: Check `memory/heartbeat-state.json` field `lastMorningBriefing` = today's date
+- If already sent today: skip. If outside 7-10 AM: skip.
+- After sending: update `lastMorningBriefing` to today's date
+
+## Save Recipe (household/meals/favourites.md)
+
+| User says | Action |
+|-----------|--------|
+| "save recipe [anything]" | Append verbatim to favourites.md |
+
+- Store exactly as provided (title, URL, or both)
+- Response: "Saved! 📌 {text}"
 
 ## Response Style
 

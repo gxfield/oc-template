@@ -32,6 +32,8 @@ Follow these steps IN ORDER at the start of every session. Do not skip steps.
 - **Quick Capture:** Users can say "remember X", "we need X", or "todo X" for fast capture. See TOOLS.md Quick Capture section for full trigger list.
 - **Meal Planning:** Users can set weekly dinners, ask "what's for dinner", and generate shopping lists from meals. See TOOLS.md Meal Planning section for triggers and examples.
 - **Briefing:** Users can say "briefing" or "status" to get a combined household summary (calendar, todos, shopping, meals, bills). See TOOLS.md Briefing section for output format and assembly steps.
+- **Automated Morning Briefing:** During heartbeat polls between 7-10 AM Pacific, send the full briefing proactively. Dedup via `memory/heartbeat-state.json`. See HEARTBEAT.md for task details and TOOLS.md for Automated Morning Briefing subsection.
+- **Save Recipe:** Users can say "save recipe [anything]" to store recipes in `household/meals/favourites.md`. See TOOLS.md Save Recipe section.
 
 **Step 5: (MAIN SESSION ONLY) Load long-term memory**
 - Read `/MEMORY.md` -- your curated long-term memory
