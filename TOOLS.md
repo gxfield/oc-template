@@ -109,6 +109,7 @@ node calendar.js update EVENT_ID summary "New Title"
 | `maintenance.md` | Home maintenance log |
 | `calendar.md` | Local event notes (non-Google) |
 | `meals/this-week.md` | Weekly meal plan |
+| `meals/favourites.md` | Saved recipe titles and links |
 
 ### DO / DO NOT for Household File Operations
 
@@ -560,6 +561,48 @@ Meal Planning handlers enable setting weekly dinner plans, querying tonight's me
 - **"what's for dinner" when day is "No plan"** → Suggest setting a meal
 - **"set dinner to pizza" with no day specified** → Assume tonight (get from `node calendar/calendar.js now`)
 - **"clear Thursday" or "no dinner Thursday"** → Set to "No plan"
+
+---
+
+## Save Recipe
+
+Save Recipe enables quick storage of recipe titles, URLs, or both to a favourites file. The saved text is stored verbatim -- no validation or reformatting.
+
+### Trigger Phrase Table
+
+| Trigger Pattern | Target File | Action |
+|---|---|---|
+| "save recipe X" | `household/meals/favourites.md` | Append X verbatim as list item |
+
+### Parsing Rules
+
+1. Extract everything after "save recipe " (case-insensitive trigger)
+2. Capitalize first letter if the text starts lowercase
+3. Format: `- {saved text}` (one line)
+4. Read `household/meals/favourites.md`, append the new line, write file back
+
+### Input/Output Examples
+
+**Input:** "save recipe Ham and Cheese Egg Muffins https://peaceloveandlowcarb.com/ham-and-cheese-egg-muffins/"
+**Action:** Read favourites.md, append `- Ham and Cheese Egg Muffins https://peaceloveandlowcarb.com/ham-and-cheese-egg-muffins/`
+**Response:** "Saved! 📌 Ham and Cheese Egg Muffins"
+
+**Input:** "save recipe grandma's pot roast"
+**Action:** Read favourites.md, append `- Grandma's pot roast`
+**Response:** "Saved! 📌 Grandma's pot roast"
+
+**Input:** "save recipe https://somesite.com/recipe/123"
+**Action:** Read favourites.md, append `- https://somesite.com/recipe/123`
+**Response:** "Saved! 📌 https://somesite.com/recipe/123"
+
+### DO / DO NOT for Save Recipe
+
+| DO | DO NOT | WHY |
+|---|---|---|
+| Store the text exactly as provided after "save recipe" | Parse or validate URLs | User may save just a title, just a URL, or both |
+| Capitalize first letter | Reformat the entire string | Minimal normalization for consistency |
+| Confirm with recipe name/text in response | Give detailed explanation | Quick capture pattern -- keep it fast |
+| Read file before appending | Use `echo >>` to append | Must preserve existing content and format header |
 
 ---
 
