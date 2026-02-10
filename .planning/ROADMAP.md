@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Meal Planning** - Weekly meal planning with shopping list integration (completed 2026-02-09)
 - [ ] **Phase 4: Bill Reminders** - Structured bill tracking with due date queries
 - [x] **Phase 5: Briefing System** - Unified daily briefing command combining all household data (completed 2026-02-09)
-- [ ] **Phase 6: Daily Morning Briefing** - Automated briefing, enhanced content, and save recipe
+- [x] **Phase 6: Daily Morning Briefing** - Automated briefing, enhanced content, and save recipe (completed 2026-02-10)
 
 ## Phase Details
 
@@ -112,8 +112,8 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 06-01-PLAN.md — Add enhanced briefing sections (meat reminder, recipe inspiration) and automated morning briefing to TOOLS.md + HEARTBEAT.md
-- [ ] 06-02-PLAN.md — Add save recipe to TOOLS.md, create favourites.md, update QUICKSTART.md and AGENTS.md
+- [x] 06-01-PLAN.md — Add enhanced briefing sections (meat reminder, recipe inspiration) and automated morning briefing to TOOLS.md + HEARTBEAT.md
+- [x] 06-02-PLAN.md — Add save recipe to TOOLS.md, create favourites.md, update QUICKSTART.md and AGENTS.md
 
 ## Progress
 
@@ -127,4 +127,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 3. Meal Planning | 3/3 | Complete | 2026-02-09 |
 | 4. Bill Reminders | 0/TBD | Not started | - |
 | 5. Briefing System | 2/2 | Complete | 2026-02-09 |
-| 6. Daily Morning Briefing | 0/2 | Not started | - |
+| 6. Daily Morning Briefing | 2/2 | Complete | 2026-02-10 |
