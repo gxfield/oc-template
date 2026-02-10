@@ -341,6 +341,37 @@ No bills due this week!
 - **Dinner has no meat keywords (e.g., "Pasta with marinara"):** Skip Meat Reminder entirely
 - **RSS feed unavailable:** Show "Could not fetch recipes" instead of crashing
 
+#### Automated Morning Briefing
+
+The agent sends the briefing proactively during heartbeat polls without the user asking.
+
+**Timing:** Between 7:00 AM and 10:00 AM Pacific (checked via `node calendar/calendar.js now`)
+
+**Dedup:** The agent tracks whether today's briefing has already been sent using `memory/heartbeat-state.json`:
+
+```json
+{
+  "lastMorningBriefing": "2026-02-10"
+}
+```
+
+**Workflow during heartbeat:**
+1. Get current Pacific time from `node calendar/calendar.js now`
+2. Check if hour is between 7 and 9 (inclusive, so 7:00-9:59 AM)
+3. Read `memory/heartbeat-state.json` (create with empty object `{}` if missing)
+4. If `lastMorningBriefing` equals today's date → skip (already sent)
+5. If not yet sent → assemble full 7-section briefing (same as on-demand) and send to user
+6. After sending → update `lastMorningBriefing` to today's date in heartbeat-state.json
+
+**DO / DO NOT:**
+
+| DO | DO NOT | WHY |
+|---|---|---|
+| Check time with `node calendar/calendar.js now` | Use `date` command or JavaScript `new Date()` | UTC system clock gives wrong hour |
+| Write `lastMorningBriefing` after sending | Write before sending | If send fails, dedup would prevent retry |
+| Create heartbeat-state.json if missing | Assume file exists | First heartbeat won't have it |
+| Use the same 7-section format as on-demand briefing | Create a different/shorter format | Consistency for user |
+
 ### Help
 
 **Input:** "help" / "commands"
