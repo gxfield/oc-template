@@ -106,28 +106,29 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BRIEF-01 | Phase 5 | Complete |
 | BRIEF-02 | Phase 5 | Complete |
 | BRIEF-03 | Phase 5 | Complete |
-| INFRA-01 | TBD | Pending |
-| INFRA-02 | TBD | Pending |
-| INFRA-03 | TBD | Pending |
-| INFRA-04 | TBD | Pending |
-| CACHE-01 | TBD | Pending |
-| CACHE-02 | TBD | Pending |
-| CACHE-03 | TBD | Pending |
-| CACHE-04 | TBD | Pending |
-| CAL-01 | TBD | Pending |
-| CAL-02 | TBD | Pending |
-| CAL-03 | TBD | Pending |
-| CAL-04 | TBD | Pending |
-| CAL-05 | TBD | Pending |
-| WTHR-01 | TBD | Pending |
-| WTHR-02 | TBD | Pending |
-| WTHR-03 | TBD | Pending |
+| INFRA-01 | Phase 7 | Pending |
+| INFRA-02 | Phase 7 | Pending |
+| INFRA-03 | Phase 7 | Pending |
+| INFRA-04 | Phase 7 | Pending |
+| CACHE-01 | Phase 8 | Pending |
+| CACHE-02 | Phase 8 | Pending |
+| CACHE-03 | Phase 8 | Pending |
+| CACHE-04 | Phase 8 | Pending |
+| CAL-01 | Phase 9 | Pending |
+| CAL-02 | Phase 9 | Pending |
+| CAL-03 | Phase 9 | Pending |
+| CAL-04 | Phase 9 | Pending |
+| CAL-05 | Phase 9 | Pending |
+| WTHR-01 | Phase 10 | Pending |
+| WTHR-02 | Phase 10 | Pending |
+| WTHR-03 | Phase 10 | Pending |
 
 **Coverage:**
-- v2.0 requirements: 15 total
-- Mapped to phases: 0
-- Unmapped: 15 (awaiting roadmap)
+- v1.0 requirements: 15 total (12 complete, 3 deferred)
+- v2.0 requirements: 16 total
+- Mapped to phases: 16
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-09*
-*Last updated: 2026-02-10 after v2.0 requirements definition*
+*Last updated: 2026-02-10 after v2.0 roadmap creation*
