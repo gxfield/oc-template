@@ -4,6 +4,7 @@
  */
 
 const { createLLMPayload, createErrorPayload } = require('./types');
+const cache = require('./cache');
 
 /**
  * Creates a task runner from a TaskConfig object.
@@ -19,6 +20,11 @@ const { createLLMPayload, createErrorPayload } = require('./types');
  *   },
  *   helpers: {                         // map of helper name -> helper function
  *     'echo': helperFunction
+ *   },
+ *   cache: {                           // optional cache config (tasks without this skip caching)
+ *     ttl: 300000,                     // TTL in ms (5 min), optional
+ *     dailyReset: false,               // timezone-aware daily expiry, optional
+ *     keyStrategy: (task, intent, params) => string  // optional custom key builder
  *   }
  * }
  *
@@ -49,7 +55,30 @@ function createRunner(taskConfig) {
         }
       }
 
-      // Step 3: Execute helpers sequentially
+      // Step 3: Cache check (if task has cache config)
+      if (taskConfig.cache) {
+        const cacheKey = cache.buildKey(
+          task,
+          intent,
+          parameters,
+          taskConfig.cache.keyStrategy
+        );
+        const cachedPayload = cache.get(cacheKey);
+
+        if (cachedPayload) {
+          // Cache hit - return cached result with updated meta
+          return {
+            ...cachedPayload,
+            meta: {
+              ...cachedPayload.meta,
+              cached: true,
+              timestamp: new Date().toISOString()
+            }
+          };
+        }
+      }
+
+      // Step 4: Execute helpers sequentially
       let previousResult = null;
       const context = {
         task: taskConfig.task,
@@ -72,11 +101,28 @@ function createRunner(taskConfig) {
         previousResult = await helper(parameters, context);
       }
 
-      // Step 4: Wrap in LLMPayload
-      return createLLMPayload(task, intent, parameters, previousResult);
+      // Step 5: Wrap in LLMPayload
+      const payload = createLLMPayload(task, intent, parameters, previousResult);
+
+      // Step 6: Cache store (if task has cache config and result is not an error)
+      if (taskConfig.cache && !payload.meta.error) {
+        const cacheKey = cache.buildKey(
+          task,
+          intent,
+          parameters,
+          taskConfig.cache.keyStrategy
+        );
+        cache.set(cacheKey, payload, {
+          ttl: taskConfig.cache.ttl,
+          dailyReset: taskConfig.cache.dailyReset
+        });
+      }
+
+      // Step 7: Return payload
+      return payload;
 
     } catch (error) {
-      // Step 5: Catch any errors and return error payload
+      // Step 8: Catch any errors and return error payload
       return createErrorPayload(task, intent, parameters, error.message);
     }
   };
