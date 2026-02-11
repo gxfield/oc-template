@@ -121,8 +121,8 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 07-01-PLAN.md — Create request normalizer (read-msg.js) and type constructors (types.js)
-- [ ] 07-02-PLAN.md — Create orchestrator, echo proof task, and registry entry point
+- [x] 07-01-PLAN.md — Create request normalizer (read-msg.js) and type constructors (types.js)
+- [x] 07-02-PLAN.md — Create orchestrator, echo proof task, and registry entry point
 
 #### Phase 8: Cache Layer
 **Goal**: JSON file cache stores task results with TTL and daily reset to reduce redundant API calls and improve agent response time
@@ -181,7 +181,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 4. Bill Reminders | v1.0 | 0/TBD | Deferred | - |
 | 5. Briefing System | v1.0 | 2/2 | Complete | 2026-02-09 |
 | 6. Daily Morning Briefing | v1.0 | 2/2 | Complete | 2026-02-10 |
-| 7. Task Infrastructure | v2.0 | 0/TBD | Not started | - |
+| 7. Task Infrastructure | v2.0 | 2/2 | Complete | 2026-02-11 |
 | 8. Cache Layer | v2.0 | 0/TBD | Not started | - |
 | 9. Calendar Task | v2.0 | 0/TBD | Not started | - |
 | 10. Weather Task | v2.0 | 0/TBD | Not started | - |
