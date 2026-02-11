@@ -19,13 +19,21 @@ The agent must reliably understand and execute household management tasks -- eve
 - ✓ Markdown-based household state (todos, shopping, meals, bills, notes, maintenance) — v0
 - ✓ Agent personality and behavior guidelines (SOUL.md, AGENTS.md) — v0
 - ✓ Telegram command mapping reference (TOOLS.md) — v0
+- ✓ Bulletproof instruction files (DO/DO NOT tables, QUICKSTART.md) — v1.0
+- ✓ Quick Capture patterns (remember, todo, shopping) — v1.0
+- ✓ Meal Planning with shopping list integration — v1.0
+- ✓ Briefing system (on-demand + automated morning) — v1.0
+- ✓ Recipe inspiration + Save Recipe — v1.0
 
 ### Active
 
 <!-- Current scope. Building toward these. -->
 
-- [ ] Bulletproof instruction files for cheaper LLMs
-- [ ] Household feature expansion (briefings, meal planning, bill reminders)
+- [ ] Task-based script architecture with common orchestrator
+- [ ] Structured LLMPayload responses for agent consumption
+- [ ] JSON file cache with TTL and daily reset
+- [ ] Calendar task module (wraps existing calendar.js)
+- [ ] Weather task module (real API integration)
 
 ### Out of Scope
 
@@ -60,17 +68,21 @@ The agent must reliably understand and execute household management tasks -- eve
 | Service account auth | No user login flow needed, agent can use directly | ✓ Good |
 | Pacific timezone hardcoded | Single-timezone household, simplifies everything | ✓ Good |
 | No test suite | CLI is simple enough to verify manually | ⚠️ Revisit |
+| Task orchestrator architecture | Structured, cacheable task execution for agent reliability | — Pending |
+| Import calendar.js directly | Helpers require() exported functions instead of shell exec | — Pending |
+| JSON file cache | Ephemeral cache in /memory/cache.json with daily cron cleanup | — Pending |
 
-## Current Milestone: v1.0 Bulletproof Instructions + Feature Expansion
+## Current Milestone: v2.0 Task Architecture
 
-**Goal:** Make the workspace reliable for cheap LLMs and useful for both Greg and Danielle.
+**Goal:** Build a task-based script architecture with caching and structured responses that powers calendar, weather, and future tasks behind the LLM assistant.
 
 **Target features:**
-- Hardened instruction files (TOOLS.md, AGENTS.md, household file headers)
-- Morning/evening briefing command
-- Meal planning workflow with shopping list integration
-- Bill reminder system with due dates
-- Quick capture patterns (remember, add to shopping)
+- Common orchestrator (task-agnostic, config-driven)
+- Cache/memory layer (JSON file, TTL, daily reset)
+- Calendar task module (wraps existing calendar.js via direct import)
+- Weather task module (real API integration)
+- Structured LLMPayload responses for agent consumption
+- TOOLS.md updates for task script usage
 
 ---
-*Last updated: 2026-02-09 after milestone v1.0 initialization*
+*Last updated: 2026-02-10 after milestone v2.0 initialization*
