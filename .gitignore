@@ -1,0 +1,4 @@
+node_modules/
+.DS_Store
+household/state/google-calendar-key.json
+memory/
