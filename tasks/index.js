@@ -6,6 +6,10 @@
 const { normalizeRequest } = require('./read-msg');
 const { createRunner } = require('./orchestrator');
 const { createErrorPayload } = require('./types');
+const cache = require('./cache');
+
+// Clean stale entries on startup
+cache.clearExpired();
 
 /**
  * Task registry - map of task names to their TaskConfig objects.

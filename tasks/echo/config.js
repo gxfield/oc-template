@@ -14,5 +14,8 @@ module.exports = {
   },
   helpers: {
     'echo': echo
+  },
+  cache: {
+    ttl: 60000  // 1 minute TTL for echo (short, since it's a demo task)
   }
 };
