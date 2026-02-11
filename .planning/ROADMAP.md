@@ -134,10 +134,11 @@ Plans:
   3. Cache entries expire via configurable TTL or timezone-aware daily reset
   4. Task helpers can get, set, and clear expired cache entries without managing file I/O
   5. Repeated requests within TTL return cached responses instantly
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] TBD (to be defined during planning)
+- [ ] 08-01-PLAN.md — Create cache module with get/set/clearExpired and JSON file persistence
+- [ ] 08-02-PLAN.md — Integrate cache into orchestrator pipeline and echo task config
 
 #### Phase 9: Calendar Task
 **Goal**: Calendar operations execute through task orchestrator with structured responses instead of CLI text output
