@@ -118,10 +118,11 @@ Plans:
   3. Adding a new task requires only creating helpers/, config.js, and index.js entry
   4. All task runners return consistent LLMPayload objects with task, intent, parameters, data, and meta fields
   5. Agent can consume LLMPayload responses without parsing custom formats
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] TBD (to be defined during planning)
+- [ ] 07-01-PLAN.md — Create request normalizer (read-msg.js) and type constructors (types.js)
+- [ ] 07-02-PLAN.md — Create orchestrator, echo proof task, and registry entry point
 
 #### Phase 8: Cache Layer
 **Goal**: JSON file cache stores task results with TTL and daily reset to reduce redundant API calls and improve agent response time
