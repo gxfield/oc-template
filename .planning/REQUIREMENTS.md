@@ -52,10 +52,10 @@ Requirements for task architecture milestone. Each maps to roadmap phases.
 
 ### Cache (CACHE)
 
-- [ ] **CACHE-01**: JSON file cache at /memory/cache.json stores LLMPayload entries with TTL
-- [ ] **CACHE-02**: Cache keys are task-config-driven (each task defines its own keying strategy)
-- [ ] **CACHE-03**: Cache entries expire via configurable TTL or daily reset (timezone-aware)
-- [ ] **CACHE-04**: Cache exposes get/set/clearExpired operations
+- [x] **CACHE-01**: JSON file cache at /memory/cache.json stores LLMPayload entries with TTL
+- [x] **CACHE-02**: Cache keys are task-config-driven (each task defines its own keying strategy)
+- [x] **CACHE-03**: Cache entries expire via configurable TTL or daily reset (timezone-aware)
+- [x] **CACHE-04**: Cache exposes get/set/clearExpired operations
 
 ### Calendar (CAL)
 

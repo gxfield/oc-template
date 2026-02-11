@@ -137,8 +137,8 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 08-01-PLAN.md — Create cache module with get/set/clearExpired and JSON file persistence
-- [ ] 08-02-PLAN.md — Integrate cache into orchestrator pipeline and echo task config
+- [x] 08-01-PLAN.md — Create cache module with get/set/clearExpired and JSON file persistence
+- [x] 08-02-PLAN.md — Integrate cache into orchestrator pipeline and echo task config
 
 #### Phase 9: Calendar Task
 **Goal**: Calendar operations execute through task orchestrator with structured responses instead of CLI text output
@@ -183,6 +183,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 5. Briefing System | v1.0 | 2/2 | Complete | 2026-02-09 |
 | 6. Daily Morning Briefing | v1.0 | 2/2 | Complete | 2026-02-10 |
 | 7. Task Infrastructure | v2.0 | 2/2 | Complete | 2026-02-11 |
-| 8. Cache Layer | v2.0 | 0/TBD | Not started | - |
+| 8. Cache Layer | v2.0 | 2/2 | Complete | 2026-02-11 |
 | 9. Calendar Task | v2.0 | 0/TBD | Not started | - |
 | 10. Weather Task | v2.0 | 0/TBD | Not started | - |
