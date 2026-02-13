@@ -153,8 +153,8 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 09-01-PLAN.md — Export calendar.js functions and create fetch-calendar helper with get intent
-- [ ] 09-02-PLAN.md — Add set and remove helpers with validators and helper chaining
+- [x] 09-01-PLAN.md — Export calendar.js functions and create fetch-calendar helper with get intent
+- [x] 09-02-PLAN.md — Add set and remove helpers with validators and helper chaining
 
 #### Phase 10: Weather Task
 **Goal**: Weather data integrates via OpenWeatherMap API with caching and smart defaults
@@ -185,5 +185,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 6. Daily Morning Briefing | v1.0 | 2/2 | Complete | 2026-02-10 |
 | 7. Task Infrastructure | v2.0 | 2/2 | Complete | 2026-02-11 |
 | 8. Cache Layer | v2.0 | 2/2 | Complete | 2026-02-11 |
-| 9. Calendar Task | v2.0 | 0/2 | Not started | - |
+| 9. Calendar Task | v2.0 | 2/2 | Complete | 2026-02-12 |
 | 10. Weather Task | v2.0 | 0/TBD | Not started | - |
