@@ -168,7 +168,7 @@ Plans:
 **Plans:** 1 plan
 
 Plans:
-- [ ] 10-01-PLAN.md — Create weather helper, config, and registry entry with OpenWeatherMap API integration
+- [x] 10-01-PLAN.md — Create weather helper, config, and registry entry with OpenWeatherMap API integration
 
 ## Progress
 
@@ -186,4 +186,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 7. Task Infrastructure | v2.0 | 2/2 | Complete | 2026-02-11 |
 | 8. Cache Layer | v2.0 | 2/2 | Complete | 2026-02-11 |
 | 9. Calendar Task | v2.0 | 2/2 | Complete | 2026-02-12 |
-| 10. Weather Task | v2.0 | 0/1 | Not started | - |
+| 10. Weather Task | v2.0 | 1/1 | Complete | 2026-02-13 |
