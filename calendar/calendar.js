@@ -295,12 +295,32 @@ async function updateEvent(calendarId, eventId, updates) {
   }
 }
 
+// ── Module exports ───────────────────────────────────────────
+
+module.exports = {
+  loadConfig,
+  getAuthClient,
+  nowInPacific,
+  formatPacific,
+  formatPacificDate,
+  pacificMidnightToUTC,
+  todayBounds,
+  thisWeekBounds,
+  nextNDaysBounds,
+  listEvents,
+  createEvent,
+  deleteEvent,
+  updateEvent
+};
+
 // ── CLI ──────────────────────────────────────────────────────
+// CLI mode - only runs when executed directly
 
-const command = process.argv[2];
-const args = process.argv.slice(3);
+if (require.main === module) {
+  const command = process.argv[2];
+  const args = process.argv.slice(3);
 
-(async () => {
+  (async () => {
   const config = loadConfig();
   const calendarId = config.calendarId;
   const tz = config.timeZone || USER_TZ;
@@ -410,5 +430,6 @@ Commands:
 
 Times for 'add' are YYYY-MM-DDTHH:MM:SS in Pacific Time.
       `);
-  }
-})();
+    }
+  })();
+}
