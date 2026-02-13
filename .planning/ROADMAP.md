@@ -165,10 +165,10 @@ Plans:
   2. Weather config fills default location and units when parameters missing from request
   3. Cache ignores request tone variations so "weather today" and "how's the weather" share cached data
   4. Weather responses include temperature, conditions, forecast, and timestamp
-**Plans**: TBD
+**Plans:** 1 plan
 
 Plans:
-- [ ] TBD (to be defined during planning)
+- [ ] 10-01-PLAN.md — Create weather helper, config, and registry entry with OpenWeatherMap API integration
 
 ## Progress
 
@@ -186,4 +186,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 7. Task Infrastructure | v2.0 | 2/2 | Complete | 2026-02-11 |
 | 8. Cache Layer | v2.0 | 2/2 | Complete | 2026-02-11 |
 | 9. Calendar Task | v2.0 | 2/2 | Complete | 2026-02-12 |
-| 10. Weather Task | v2.0 | 0/TBD | Not started | - |
+| 10. Weather Task | v2.0 | 0/1 | Not started | - |
