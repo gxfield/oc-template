@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-10)
 
 ## Current Position
 
-Phase: 9 of 10 (Calendar Task) - COMPLETE
-Plan: 2/2 complete
-Status: Phase 9 verified and complete
-Last activity: 2026-02-12 — Phase 9 execution complete, verification passed
+Phase: 10 of 10 (Weather Task) - COMPLETE
+Plan: 1/1 complete
+Status: Phase 10 verified and complete
+Last activity: 2026-02-13 — Phase 10 execution complete, v2.0 Task Architecture milestone complete
 
-Progress: [█████████████████░░░] 90% (18 of 20 plans complete across all phases)
+Progress: [████████████████████] 95% (19 of 20 plans complete across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 18
-- Average duration: 1.33 min
-- Total execution time: 0.43 hours
+- Total plans completed: 19
+- Average duration: 1.35 min
+- Total execution time: 0.45 hours
 
 **By Phase:**
 
@@ -35,9 +35,10 @@ Progress: [█████████████████░░░] 90% (18
 | 7. Task Infrastructure | 2 | 2.62 min | 1.31 min |
 | 8. Cache Layer | 2 | 3.08 min | 1.54 min |
 | 9. Calendar Task | 2 | 4.23 min | 2.12 min |
+| 10. Weather Task | 1 | 1.35 min | 1.35 min |
 
 **Recent Trend:**
-- Last 5 plans: [1.37, 1.28, 1.8, 2.6, 1.63] min
+- Last 5 plans: [1.28, 1.8, 2.6, 1.63, 1.35] min
 - Trend: Stable with variation
 
 *Updated after each plan completion*
@@ -47,6 +48,7 @@ Progress: [█████████████████░░░] 90% (18
 | Phase 08 P02 | 108 | 2 tasks | 3 files |
 | Phase 09-calendar-task P01 | 156 | 3 tasks | 4 files |
 | Phase 09-calendar-task P02 | 98 | 3 tasks | 3 files |
+| Phase 10-weather-task P01 | 81 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -65,11 +67,13 @@ Recent decisions affecting current work:
 - [Phase 09-calendar-task]: Used dailyReset cache with range-aware keyStrategy (differentiates today/week/upcoming)
 - [Phase 09-calendar-task]: Helper returns structured {events, count, range} instead of console.log output
 - [Phase 09-02]: Remove intent chains removeCalendarItem -> fetchCalendar for updated list confirmation
+- [Phase 10-01]: Built-in https module for API calls instead of adding dependencies
+- [Phase 10-01]: Weather cache uses 30-minute TTL with location+units keyStrategy (tone-agnostic)
 
 ### Roadmap Evolution
 
 - v1.0 shipped (Phases 1-6, Phase 4 deferred)
-- v2.0 in progress: Task Architecture (Phases 7-10)
+- v2.0 COMPLETE: Task Architecture (Phases 7-10)
 
 ### Pending Todos
 
@@ -82,7 +86,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-13
-Stopped at: Completed 09-02-PLAN.md
+Stopped at: Completed 10-01-PLAN.md
 Resume file: None
 
 ---
