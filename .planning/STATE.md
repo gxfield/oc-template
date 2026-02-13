@@ -2,17 +2,16 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-02-10)
+See: .planning/PROJECT.md (updated 2026-02-13)
 
 **Core value:** The agent must reliably understand and execute household management tasks -- even when powered by cheaper LLMs -- without making mistakes with timezones, commands, or file formats.
-**Current focus:** v2.0 Task Architecture
+**Current focus:** Planning next milestone
 
 ## Current Position
 
-Phase: 10 of 10 (Weather Task) - COMPLETE
-Plan: 1/1 complete
-Status: Phase 10 verified and complete
-Last activity: 2026-02-13 — Phase 10 execution complete, v2.0 Task Architecture milestone complete
+Milestone: v2.0 Task Architecture - COMPLETE (shipped 2026-02-13)
+Status: All milestones complete, ready for next milestone
+Last activity: 2026-02-13 — v2.0 milestone archived and tagged
 
 Progress: [████████████████████] 100% (20 of 20 plans complete across all phases)
 
@@ -37,56 +36,29 @@ Progress: [████████████████████] 100% (2
 | 9. Calendar Task | 2 | 4.23 min | 2.12 min |
 | 10. Weather Task | 1 | 1.35 min | 1.35 min |
 
-**Recent Trend:**
-- Last 5 plans: [1.28, 1.8, 2.6, 1.63, 1.35] min
-- Trend: Stable with variation
-
-*Updated after each plan completion*
-| Phase 07 P01 | 75 | 2 tasks | 2 files |
-| Phase 07 P02 | 82 | 3 tasks | 4 files |
-| Phase 08 P01 | 77 | 1 tasks | 2 files |
-| Phase 08 P02 | 108 | 2 tasks | 3 files |
-| Phase 09-calendar-task P01 | 156 | 3 tasks | 4 files |
-| Phase 09-calendar-task P02 | 98 | 3 tasks | 3 files |
-| Phase 10-weather-task P01 | 81 | 2 tasks | 3 files |
-
 ## Accumulated Context
 
 ### Decisions
 
-Decisions are logged in PROJECT.md Key Decisions table.
-Recent decisions affecting current work:
-
-- v2.0: Task orchestrator architecture with structured LLMPayload responses (Pending)
-- v2.0: Import calendar.js directly via require() instead of shell exec (Pending)
-- v2.0: JSON file cache at /memory/cache.json with daily cron cleanup (Pending)
-- [Phase 07-01]: Factory functions for type construction (vs classes)
-- [Phase 07-02]: Orchestrator returns error payloads instead of throwing for consistent LLMPayload interface
-- [Phase 07-02]: Helpers receive context object with previousResult for chaining support
-- [Phase 09-calendar-task]: Wrapped CLI block in require.main === module guard to enable both CLI and programmatic use
-- [Phase 09-calendar-task]: Used dailyReset cache with range-aware keyStrategy (differentiates today/week/upcoming)
-- [Phase 09-calendar-task]: Helper returns structured {events, count, range} instead of console.log output
-- [Phase 09-02]: Remove intent chains removeCalendarItem -> fetchCalendar for updated list confirmation
-- [Phase 10-01]: Built-in https module for API calls instead of adding dependencies
-- [Phase 10-01]: Weather cache uses 30-minute TTL with location+units keyStrategy (tone-agnostic)
+All decisions logged in PROJECT.md Key Decisions table.
 
 ### Roadmap Evolution
 
-- v1.0 shipped (Phases 1-6, Phase 4 deferred)
-- v2.0 COMPLETE: Task Architecture (Phases 7-10)
+- v1.0 shipped (Phases 1-6, Phase 4 deferred) — 2026-02-10
+- v2.0 shipped (Phases 7-10) — 2026-02-13
 
 ### Pending Todos
 
-None yet.
+None.
 
 ### Blockers/Concerns
 
-None yet.
+None.
 
 ## Session Continuity
 
 Last session: 2026-02-13
-Stopped at: Completed 10-01-PLAN.md
+Stopped at: v2.0 milestone complete
 Resume file: None
 
 ---

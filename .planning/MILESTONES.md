@@ -24,3 +24,30 @@
 
 ---
 *Archived: 2026-02-10*
+
+## v2.0 — Task Architecture
+
+**Completed:** 2026-02-13
+**Phases:** 7-10
+**Last phase number:** 10
+
+### What Shipped
+- Config-driven task orchestrator with structured LLMPayload responses (types.js, read-msg.js, orchestrator.js)
+- File-backed JSON cache with TTL expiry and Pacific timezone daily reset
+- Calendar task module wrapping calendar.js with get/add/remove intents and helper chaining
+- Weather task module with OpenWeatherMap API, tone-agnostic caching, and default parameter filling
+- Consistent error handling (never throws, always returns error payloads)
+
+### What Didn't Ship
+- TOOLS.md updates for task script usage (deferred — agent can use tasks programmatically without doc updates)
+
+### Key Metrics
+- Plans completed: 7
+- Commits: 16 feat commits
+- Lines of code: 913 (13 files in tasks/)
+- Average plan duration: 1.46 minutes
+- Total execution time: 3 days (2026-02-11 → 2026-02-13)
+
+---
+*Archived: 2026-02-13*
+
