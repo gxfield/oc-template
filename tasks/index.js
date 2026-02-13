@@ -17,6 +17,7 @@ cache.clearExpired();
  */
 const registry = {
   echo: require('./echo/config'),
+  calendar: require('./calendar/config'),
 };
 
 /**
