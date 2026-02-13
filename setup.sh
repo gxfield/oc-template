@@ -21,6 +21,11 @@ copy_template() {
   fi
 }
 
+# Credentials
+echo ""
+echo "Initializing credentials..."
+copy_template credentials.json.example
+
 echo ""
 echo "Initializing household data files..."
 copy_template household/todos.md.example
@@ -51,18 +56,23 @@ echo "  DONE"
 echo ""
 echo "Checking credentials..."
 
-if [ -f household/state/google-calendar-key.json ]; then
-  echo "  OK    Google Calendar service account key found"
+if [ -f credentials.json ]; then
+  # Check for google_calendar key
+  if grep -q '"google_calendar"' credentials.json; then
+    echo "  OK    google_calendar found in credentials.json"
+  else
+    echo "  MISSING google_calendar key in credentials.json"
+    echo "          Paste your Google service account JSON under the google_calendar key"
+  fi
+  # Check for openweather key
+  if grep -q '"openweather_api_key": ""' credentials.json; then
+    echo "  MISSING openweather_api_key is empty in credentials.json"
+    echo "          Add your OpenWeatherMap API key"
+  else
+    echo "  OK    openweather_api_key found in credentials.json"
+  fi
 else
-  echo "  MISSING household/state/google-calendar-key.json"
-  echo "          Copy your Google Cloud service account key here"
-fi
-
-if [ -n "$OPENWEATHER_API_KEY" ]; then
-  echo "  OK    OPENWEATHER_API_KEY is set"
-else
-  echo "  MISSING OPENWEATHER_API_KEY environment variable"
-  echo "          Export it in your shell profile or .env file"
+  echo "  MISSING credentials.json (run setup again after creating it)"
 fi
 
 echo ""

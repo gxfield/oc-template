@@ -4,6 +4,8 @@
  */
 
 const https = require('https');
+const fs = require('fs');
+const path = require('path');
 
 const DEFAULT_LOCATION = 'Seattle,WA,US';
 const DEFAULT_UNITS = 'imperial';
@@ -49,10 +51,16 @@ async function getWeather(parameters, context) {
   const location = parameters.location || DEFAULT_LOCATION;
   const units = parameters.units || DEFAULT_UNITS;
 
-  // Check for API key
-  const apiKey = process.env.OPENWEATHER_API_KEY;
+  // Check for API key: env var first, then credentials.json
+  let apiKey = process.env.OPENWEATHER_API_KEY;
   if (!apiKey) {
-    throw new Error('OPENWEATHER_API_KEY environment variable is required');
+    try {
+      const creds = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', '..', 'credentials.json'), 'utf8'));
+      apiKey = creds.openweather_api_key;
+    } catch (_) {}
+  }
+  if (!apiKey) {
+    throw new Error('OPENWEATHER_API_KEY not found in environment or credentials.json');
   }
 
   // Build API URLs

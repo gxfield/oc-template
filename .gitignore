@@ -5,8 +5,7 @@
 node_modules/
 
 # Secrets & credentials
-household/state/google-calendar-key.json
-calendar/credentials.json
+credentials.json
 
 # Runtime state
 memory/

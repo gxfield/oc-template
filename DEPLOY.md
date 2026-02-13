@@ -24,19 +24,14 @@
    ./setup.sh
    ```
 
-3. Add your Google Calendar service account key:
+3. Edit `credentials.json` with your actual keys:
    ```bash
-   # Copy the key file from a secure location
-   cp /path/to/your/service-account-key.json household/state/google-calendar-key.json
+   # Paste your Google service account JSON under "google_calendar"
+   # Add your OpenWeatherMap API key under "openweather_api_key"
+   vi credentials.json
    ```
 
-4. Set the OpenWeatherMap API key:
-   ```bash
-   export OPENWEATHER_API_KEY="your-key-here"
-   ```
-   Add this to your shell profile (`~/.bashrc`, `~/.zshrc`, etc.) to persist it.
-
-5. Verify calendar works:
+4. Verify calendar works:
    ```bash
    node calendar/calendar.js now
    node calendar/calendar.js today
@@ -59,8 +54,7 @@ If new `.example` templates were added, re-run setup to pick them up:
 
 | File | Contains |
 |------|----------|
-| `household/state/google-calendar-key.json` | Google service account private key |
-| `calendar/credentials.json` | Google credentials (if used) |
+| `credentials.json` | All API keys and service account credentials |
 | `household/*.md` | Personal household data (todos, shopping, notes, etc.) |
 | `household/meals/*.md` | Meal plans and saved recipes |
 | `memory/` | Runtime cache and session memory |
@@ -71,12 +65,7 @@ If new `.example` templates were added, re-run setup to pick them up:
 
 - All source code (`tasks/`, `calendar/`)
 - Agent instructions (`TOOLS.md`, `QUICKSTART.md`, `AGENTS.md`, etc.)
+- `credentials.json.example` (template showing required keys)
 - Household `.example` templates (format instructions for the agent)
 - Calendar config (`calendar/config.json` -- calendar ID + timezone)
 - Planning docs (`.planning/`)
-
-## Environment variables
-
-| Variable | Required for | Get it from |
-|----------|-------------|-------------|
-| `OPENWEATHER_API_KEY` | Weather task | https://openweathermap.org/api |

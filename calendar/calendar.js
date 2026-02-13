@@ -11,7 +11,7 @@ const path = require('path');
 // ============================================================
 const USER_TZ = 'America/Los_Angeles';
 
-const CREDENTIALS_PATH = path.join(__dirname, 'credentials.json');
+const CREDENTIALS_PATH = path.join(__dirname, '..', 'credentials.json');
 const CONFIG_PATH = path.join(__dirname, 'config.json');
 
 // ── Helpers ──────────────────────────────────────────────────
@@ -27,7 +27,12 @@ function loadConfig() {
 
 function getAuthClient() {
   try {
-    const credentials = JSON.parse(fs.readFileSync(CREDENTIALS_PATH, 'utf8'));
+    const allCreds = JSON.parse(fs.readFileSync(CREDENTIALS_PATH, 'utf8'));
+    const credentials = allCreds.google_calendar;
+    if (!credentials) {
+      console.error('❌ "google_calendar" key not found in credentials.json.');
+      process.exit(1);
+    }
     return new google.auth.GoogleAuth({
       credentials,
       scopes: ['https://www.googleapis.com/auth/calendar'],

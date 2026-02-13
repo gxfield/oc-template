@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 
-const CREDENTIALS_PATH = path.join(__dirname, 'credentials.json');
+const CREDENTIALS_PATH = path.join(__dirname, '..', 'credentials.json');
 const CONFIG_PATH = path.join(__dirname, 'config.json');
 
 const rl = readline.createInterface({
@@ -23,17 +23,18 @@ async function setup() {
 
   // Check if credentials exist
   if (!fs.existsSync(CREDENTIALS_PATH)) {
-    console.log('❌ credentials.json not found. Please ensure the service account JSON file is located in this directory as "credentials.json".');
-    console.log('\nPlease place your service account JSON file in this directory as "credentials.json"');
-    console.log('You can download it from Google Cloud Console → Service Accounts → Keys\n');
+    console.log('❌ credentials.json not found at project root.');
+    console.log('\nCopy credentials.json.example to credentials.json and fill in your keys.');
+    console.log('Google service account key goes under the "google_calendar" key.\n');
     process.exit(1);
   }
 
   // Validate credentials
   try {
-    const creds = JSON.parse(fs.readFileSync(CREDENTIALS_PATH, 'utf8'));
-    if (!creds.client_email || !creds.private_key) {
-      console.log('❌ Invalid credentials.json format.');
+    const allCreds = JSON.parse(fs.readFileSync(CREDENTIALS_PATH, 'utf8'));
+    const creds = allCreds.google_calendar;
+    if (!creds || !creds.client_email || !creds.private_key) {
+      console.log('❌ "google_calendar" key missing or invalid in credentials.json.');
       process.exit(1);
     }
     console.log('✅ Credentials file found');
