@@ -1,4 +1,22 @@
-node_modules/
+# macOS
 .DS_Store
+
+# Dependencies
+node_modules/
+
+# Secrets & credentials
 household/state/google-calendar-key.json
+calendar/credentials.json
+
+# Runtime state
 memory/
+
+# Household data (personal - use .example templates for fresh setup)
+household/todos.md
+household/shopping.md
+household/notes.md
+household/bills.md
+household/calendar.md
+household/maintenance.md
+household/meals/this-week.md
+household/meals/favourites.md
