@@ -144,40 +144,47 @@ node calendar.js update EVENT_ID summary "New Title"
 **Action:** Read `household/meals/this-week.md`
 **Response format:** Show today's meal plan entry
 
-### Todos
+### Todos (Todoist)
+
+Todos are managed via the Todoist task system, not markdown files.
 
 **Parsing Examples:**
 
 **Input:** "add fix the fence" / "todo fix the fence"
-**Action:** Read household/todos.md, append "- [ ] Fix the fence", write file back
+**Action:** `node tasks/index.js "todoist add project=todos content=Fix the fence"`
 **Response:** "Added! ✅ Fix the fence"
 
 **Input:** "done fix the fence"
-**Action:** Read household/todos.md, find line matching "fix the fence" (case-insensitive), change "- [ ]" to "- [x]", write file back
+**Action:** First get tasks to find ID: `node tasks/index.js "todoist get project=todos"`, then complete: `node tasks/index.js "todoist done taskId=TASK_ID"`
 **Response:** "Done! ✅ Fix the fence"
 **Edge case:** If no match found, respond "I couldn't find that task. Here's what's on the list: ..."
 
 **Input:** "show todos"
-**Action:** Read household/todos.md, format incomplete items for Telegram (no markdown tables)
+**Action:** `node tasks/index.js "todoist get project=todos"`
 **Response:** List items with checkboxes rendered as emoji (unchecked: ◻️, checked: ✅)
 
-### Shopping
+### Shopping (Todoist)
+
+Shopping lists are managed via the Todoist task system, not markdown files.
 
 **Parsing Examples:**
 
 **Input:** "add milk to shopping"
-**Action:** Read household/shopping.md, append "- Milk", write file back
+**Action:** `node tasks/index.js "todoist add project=shopping content=Milk"`
 **Response:** "Added milk to the shopping list! 🛒"
 
 **Input:** "we need eggs, bread, and butter"
-**Action:** Read household/shopping.md, append three separate lines: "- Eggs", "- Bread", "- Butter"
+**Action:** Run three separate add commands:
+  `node tasks/index.js "todoist add project=shopping content=Eggs"`
+  `node tasks/index.js "todoist add project=shopping content=Bread"`
+  `node tasks/index.js "todoist add project=shopping content=Butter"`
 **Response:** "Added 3 items to shopping! 🛒 Eggs, Bread, Butter"
 **Edge case:** Parse comma-separated AND "and"-separated lists into individual items.
 
 **Input:** "bought milk"
-**Action:** Read household/shopping.md, find line matching "milk" (case-insensitive), remove that line, write file back
+**Action:** First get tasks to find ID: `node tasks/index.js "todoist get project=shopping"`, then complete: `node tasks/index.js "todoist done taskId=TASK_ID"`
 **Response:** "Crossed off milk! 🛒"
-**Edge case:** If "milk" appears in multiple lines (e.g., "Milk" and "Almond milk"), ask which one.
+**Edge case:** If "milk" appears in multiple tasks (e.g., "Milk" and "Almond milk"), ask which one.
 
 ### Notes
 
@@ -207,8 +214,8 @@ Briefing provides a comprehensive household summary combining calendar, todos, s
 The agent must gather data from these 7 sources in order:
 
 1. **Calendar:** Run `node calendar/calendar.js today` to get today's events
-2. **Todos:** Read `household/todos.md`, extract incomplete items (lines with `- [ ]`)
-3. **Shopping:** Read `household/shopping.md`, extract all items
+2. **Todos:** `node tasks/index.js "todoist get project=todos"` to get pending tasks
+3. **Shopping:** `node tasks/index.js "todoist get project=shopping"` to get shopping list
 4. **Meals:** Get today's day name from `node calendar/calendar.js now`, read `household/meals/this-week.md`, find matching day line
 5. **Bills:** Read `household/bills.md`, extract unpaid bills (`- [ ]` lines), filter to those with due date within next 7 days (compare to today's Pacific date from `node calendar/calendar.js now`)
 6. **Meat Reminder:** After getting tonight's dinner (step 4), check if the meal description contains any meat keyword: chicken, beef, pork, salmon, steak, turkey, lamb, fish, shrimp. Case-insensitive match. If match found, include meat reminder section. If no match or no dinner planned ("No plan"), skip entirely.
@@ -389,8 +396,8 @@ Quick Capture enables natural language triggers for fast note/todo/shopping capt
 | Trigger Pattern | Target File | Action |
 |---|---|---|
 | "remember X", "note: X", "note X", "don't forget X" | `household/notes.md` | Append with Pacific timestamp |
-| "add X to shopping", "we need X", "pick up X", "buy X", "X to the shopping list" | `household/shopping.md` | Append as list item (capitalize first letter) |
-| "todo X", "todo: X", "I need to X", "remind me to X" (no time) | `household/todos.md` | Append as unchecked task |
+| "add X to shopping", "we need X", "pick up X", "buy X", "X to the shopping list" | Todoist (shopping project) | Add via todoist task system |
+| "todo X", "todo: X", "I need to X", "remind me to X" (no time) | Todoist (todos project) | Add via todoist task system |
 
 ### Parsing Rules
 
@@ -402,12 +409,10 @@ Quick Capture enables natural language triggers for fast note/todo/shopping capt
 **Shopping:**
 1. Capitalize first letter of each item
 2. Parse commas and "and" into separate items
-3. Format: `- {Item name}` (one per line)
-4. Append to `household/shopping.md`
+3. Add each item via: `node tasks/index.js "todoist add project=shopping content=Item name"`
 
 **Todos:**
-1. Format: `- [ ] {task description}`
-2. Append to `household/todos.md`
+1. Add via: `node tasks/index.js "todoist add project=todos content=Task description"`
 
 ### Input/Output Examples
 
@@ -424,21 +429,21 @@ Quick Capture enables natural language triggers for fast note/todo/shopping capt
 **Shopping:**
 
 **Input:** "we need eggs and milk"
-**Action:** Read `household/shopping.md`, append two lines: `- Eggs` and `- Milk`
+**Action:** Add two tasks to Todoist shopping project: "Eggs" and "Milk"
 **Response:** "Added 2 items to shopping! 🛒 Eggs, Milk"
 
 **Input:** "pick up dog food"
-**Action:** Append `- Dog food` to shopping.md
+**Action:** `node tasks/index.js "todoist add project=shopping content=Dog food"`
 **Response:** "Added dog food to the shopping list! 🛒"
 
 **Todos:**
 
 **Input:** "todo fix the gate"
-**Action:** Append `- [ ] Fix the gate` to todos.md
+**Action:** `node tasks/index.js "todoist add project=todos content=Fix the gate"`
 **Response:** "Added! ✅ Fix the gate"
 
 **Input:** "I need to call the dentist"
-**Action:** Append `- [ ] Call the dentist` to todos.md
+**Action:** `node tasks/index.js "todoist add project=todos content=Call the dentist"`
 **Response:** "Added! ✅ Call the dentist"
 
 ### Disambiguation Rules

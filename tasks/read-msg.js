@@ -46,7 +46,21 @@ function normalizeRequest(input) {
     const task = tokens[0];
     const intent = tokens.length > 1 ? tokens[1] : 'get';
     const queryTokens = tokens.slice(2);
-    const parameters = queryTokens.length > 0 ? { query: queryTokens.join(' ') } : {};
+
+    // Parse key=value pairs into parameters object, remainder goes to query
+    const parameters = {};
+    const freeTokens = [];
+    for (const token of queryTokens) {
+      const eqIdx = token.indexOf('=');
+      if (eqIdx > 0) {
+        parameters[token.slice(0, eqIdx)] = token.slice(eqIdx + 1);
+      } else {
+        freeTokens.push(token);
+      }
+    }
+    if (freeTokens.length > 0) {
+      parameters.query = freeTokens.join(' ');
+    }
 
     return createTaskRequest(task, intent, parameters, input);
   }

@@ -71,6 +71,13 @@ if [ -f credentials.json ]; then
   else
     echo "  OK    openweather_api_key found in credentials.json"
   fi
+  # Check for todoist key
+  if grep -q '"todoist_api_key": ""' credentials.json; then
+    echo "  MISSING todoist_api_key is empty in credentials.json"
+    echo "          Add your Todoist API key (Settings > Integrations > Developer)"
+  else
+    echo "  OK    todoist_api_key found in credentials.json"
+  fi
 else
   echo "  MISSING credentials.json (run setup again after creating it)"
 fi

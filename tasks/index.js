@@ -19,6 +19,7 @@ const registry = {
   echo: require('./echo/config'),
   calendar: require('./calendar/config'),
   weather: require('./weather/config'),
+  todoist: require('./todoist/config'),
 };
 
 /**

@@ -26,21 +26,23 @@ You are in Pacific Time (America/Los_Angeles). The system clock is UTC.
 "What's today" = `today` (NOT `list`)
 "What's this week" = `week` (NOT `upcoming 7`)
 
-## Todos (household/todos.md)
+## Todos (Todoist)
 
-Format: `- [ ] Task` (incomplete) or `- [x] Task` (done)
+Managed via Todoist task system (shared with Danielle).
 
-- **Add:** Read file, append `- [ ] Task name`, write file back
-- **Complete:** Read file, change `- [ ]` to `- [x]` on matching line, write file back
-- **Show:** Read file, list incomplete items
+- **Show:** `node tasks/index.js "todoist get project=todos"`
+- **Add:** `node tasks/index.js "todoist add project=todos content=Task name"`
+- **Complete:** `node tasks/index.js "todoist done taskId=TASK_ID"`
+- **Add multiple:** Run separate add commands for each item
 
-## Shopping (household/shopping.md)
+## Shopping (Todoist)
 
-Format: `- Item name` (capitalize first letter)
+Managed via Todoist task system (shared with Danielle).
 
-- **Add:** Read file, append `- Item name`, write file back
-- **Add multiple:** "eggs, bread, and butter" = three separate lines
-- **Remove (bought):** Read file, delete matching line, write file back
+- **Show:** `node tasks/index.js "todoist get project=shopping"`
+- **Add:** `node tasks/index.js "todoist add project=shopping content=Item name"`
+- **Add multiple:** Run separate add commands for each item
+- **Bought:** `node tasks/index.js "todoist done taskId=TASK_ID"`
 
 ## Notes (household/notes.md)
 
@@ -74,8 +76,8 @@ Natural language shortcuts -- no exact commands needed.
 | User says | Target | Format |
 |-----------|--------|--------|
 | "remember X" / "note: X" / "don't forget X" | notes.md | `- [timestamp PT] X` |
-| "we need X" / "add X to shopping" / "pick up X" | shopping.md | `- X` (capitalize) |
-| "todo X" / "I need to X" | todos.md | `- [ ] X` |
+| "we need X" / "add X to shopping" / "pick up X" | Todoist shopping | `todoist add project=shopping content=X` |
+| "todo X" / "I need to X" | Todoist todos | `todoist add project=todos content=X` |
 
 - "remind me to X" (no time) = todo. "remind me at 3pm" = calendar event.
 - "we need to fix Y" (verb) = todo. "we need eggs" (noun) = shopping.
@@ -87,8 +89,8 @@ Natural language shortcuts -- no exact commands needed.
 
 **Data sources (7):**
 1. Calendar today (`node calendar/calendar.js today`)
-2. Pending todos (incomplete items from todos.md)
-3. Shopping list (all items from shopping.md)
+2. Pending todos (`node tasks/index.js "todoist get project=todos"`)
+3. Shopping list (`node tasks/index.js "todoist get project=shopping"`)
 4. Tonight's meal (lookup using day from `node calendar/calendar.js now`)
 5. Bills due in 7 days (unpaid, due date comparison using `now` command)
 6. Meat reminder (if tonight's dinner has meat keywords: chicken, beef, pork, salmon, etc.)
