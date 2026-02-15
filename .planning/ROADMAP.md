@@ -43,3 +43,13 @@
 | 8. Cache Layer | v2.0 | 2/2 | Complete | 2026-02-11 |
 | 9. Calendar Task | v2.0 | 2/2 | Complete | 2026-02-12 |
 | 10. Weather Task | v2.0 | 1/1 | Complete | 2026-02-13 |
+
+### Phase 1: Todoist Fix + Media Server Research
+
+**Goal:** Fix Todoist integration (credentials.json) and research feasibility of managing Plex/Overseerr/Sonarr on Umbrel from Telegram bot
+**Depends on:** v2.0 Task Architecture
+**Plans:** 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md -- Fix Todoist integration (create credentials.json, verify all intents)
+- [ ] 01-02-PLAN.md -- Media server feasibility research document
