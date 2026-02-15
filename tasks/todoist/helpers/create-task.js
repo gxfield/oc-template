@@ -29,7 +29,7 @@ async function createTask(parameters, context) {
   if (parameters.due_string) body.due_string = parameters.due_string;
   if (parameters.priority) body.priority = Number(parameters.priority);
 
-  const task = await todoistRequest('POST', '/rest/v2/tasks', apiKey, body);
+  const task = await todoistRequest('POST', '/api/v1/tasks', apiKey, body);
 
   return {
     created: true,

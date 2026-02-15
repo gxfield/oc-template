@@ -19,7 +19,7 @@ async function completeTask(parameters, context) {
     throw new Error('taskId is required to complete a task');
   }
 
-  await todoistRequest('POST', `/rest/v2/tasks/${taskId}/close`, apiKey);
+  await todoistRequest('POST', `/api/v1/tasks/${taskId}/close`, apiKey);
 
   return {
     completed: true,

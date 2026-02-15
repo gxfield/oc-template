@@ -20,7 +20,8 @@ async function fetchTasks(parameters, context) {
     throw new Error(`Unknown project: ${project}. Available: ${Object.keys(projects).join(', ')}`);
   }
 
-  const tasks = await todoistRequest('GET', `/rest/v2/tasks?project_id=${projectId}`, apiKey);
+  const response = await todoistRequest('GET', `/api/v1/tasks?project_id=${projectId}`, apiKey);
+  const tasks = response.results || response;
 
   return {
     tasks: tasks.map(t => ({
