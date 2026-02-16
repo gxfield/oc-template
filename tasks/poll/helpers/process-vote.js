@@ -135,6 +135,4 @@ function determineWinner(activePoll) {
   }
 }
 
-module.exports = {
-  processVote
-};
+module.exports = processVote;
