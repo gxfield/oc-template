@@ -20,6 +20,7 @@ const registry = {
   calendar: require('./calendar/config'),
   weather: require('./weather/config'),
   todoist: require('./todoist/config'),
+  poll: require('./poll/config'),
 };
 
 /**
