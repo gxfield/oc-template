@@ -34,6 +34,7 @@ Follow these steps IN ORDER at the start of every session. Do not skip steps.
 - **Briefing:** Users can say "briefing" or "status" to get a combined household summary (calendar, todos, shopping, meals, bills). See TOOLS.md Briefing section for output format and assembly steps.
 - **Automated Morning Briefing:** During heartbeat polls between 7-10 AM Pacific, send the full briefing proactively. Dedup via `memory/heartbeat-state.json`. See HEARTBEAT.md for task details and TOOLS.md for Automated Morning Briefing subsection.
 - **Save Recipe:** Users can say "save recipe [anything]" to store recipes in `household/meals/favourites.md`. See TOOLS.md Save Recipe section.
+- **Polls:** Users can create household polls by asking with options (e.g., "should we do tacos or pizza?"). Bot sends native Telegram poll, acts as tie-breaker. Handle poll_answer updates by calling vote intent. Check timeouts during heartbeat. See TOOLS.md Telegram Polls section.
 
 **Step 5: (MAIN SESSION ONLY) Load long-term memory**
 - Read `/MEMORY.md` -- your curated long-term memory

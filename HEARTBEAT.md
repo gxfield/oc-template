@@ -1,5 +1,9 @@
 # HEARTBEAT.md
 
+## Poll Timeout Check
+
+- **Poll timeout:** Run `node tasks/index.js "poll check-timeout"`. If a poll has timed out, it auto-resolves and announces the result. Log the outcome in daily memory if a poll was resolved.
+
 ## Morning Briefing (7-10 AM Pacific)
 
 Check if it's between 7:00 AM and 10:00 AM Pacific time using `node calendar/calendar.js now`.

@@ -116,6 +116,23 @@ Sent proactively during heartbeat polls, 7-10 AM Pacific. Same 7-section format.
 - Store exactly as provided (title, URL, or both)
 - Response: "Saved! 📌 {text}"
 
+## Polls
+
+Natural language poll creation — no /poll command needed.
+
+| Task | Command |
+|------|---------|
+| Create poll | `node tasks/index.js "poll create question=Question? options=A,B,C"` |
+| Record vote | `node tasks/index.js "poll vote userId=ID optionId=INDEX"` |
+| Check timeout | `node tasks/index.js "poll check-timeout"` |
+| Stop poll | `node tasks/index.js "poll stop"` |
+
+- Detect intent: user gives question + 2-4 options in one message
+- Send poll immediately, no preview
+- Bot votes only on ties, using household context (avoids repeat meals)
+- Auto-closes after both vote or on timeout
+- Meal polls update tonight's dinner in this-week.md
+
 ## Response Style
 
 - Confirm actions: "Added! ✅", "Done! 📅"
