@@ -3,6 +3,7 @@
  * Provides credential loading and HTTP request helper for Telegram poll operations.
  */
 
+require('dotenv').config({ quiet: true });
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
@@ -15,26 +16,38 @@ const path = require('path');
 function loadTelegramCredentials() {
   let botToken = process.env.TELEGRAM_BOT_TOKEN;
   let chatId = process.env.TELEGRAM_CHAT_ID;
-  let userIds = null;
+  let userIds = {};
 
-  // Try credentials.json
-  try {
-    const creds = JSON.parse(
-      fs.readFileSync(path.join(__dirname, '..', '..', '..', 'credentials.json'), 'utf8')
-    );
-    if (!botToken) botToken = creds.telegram_bot_token;
-    if (!chatId) chatId = creds.telegram_chat_id;
-    if (creds.telegram_user_ids) userIds = creds.telegram_user_ids;
-  } catch (_) {}
+  // Load user IDs from environment variables
+  if (process.env.TELEGRAM_USER_ID_GREG) {
+    userIds.Greg = process.env.TELEGRAM_USER_ID_GREG;
+  }
+  if (process.env.TELEGRAM_USER_ID_DANIELLE) {
+    userIds.Danielle = process.env.TELEGRAM_USER_ID_DANIELLE;
+  }
+
+  // Fallback to credentials.json if not in environment
+  if (!botToken || !chatId || Object.keys(userIds).length === 0) {
+    try {
+      const creds = JSON.parse(
+        fs.readFileSync(path.join(__dirname, '..', '..', '..', 'credentials.json'), 'utf8')
+      );
+      if (!botToken) botToken = creds.telegram_bot_token;
+      if (!chatId) chatId = creds.telegram_chat_id;
+      if (creds.telegram_user_ids && Object.keys(userIds).length === 0) {
+        userIds = creds.telegram_user_ids;
+      }
+    } catch (_) {}
+  }
 
   if (!botToken) {
-    throw new Error('telegram_bot_token not found in environment or credentials.json');
+    throw new Error('TELEGRAM_BOT_TOKEN not found in environment or credentials.json');
   }
   if (!chatId) {
-    throw new Error('telegram_chat_id not found in environment or credentials.json');
+    throw new Error('TELEGRAM_CHAT_ID not found in environment or credentials.json');
   }
   if (!userIds || Object.keys(userIds).length === 0) {
-    throw new Error('telegram_user_ids not found in credentials.json (need mapping of names to Telegram user IDs)');
+    throw new Error('TELEGRAM_USER_ID_* variables not found in environment or telegram_user_ids not found in credentials.json');
   }
 
   return { botToken, chatId, userIds };

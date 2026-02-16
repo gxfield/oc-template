@@ -3,6 +3,7 @@
  * Fetches weather data from OpenWeatherMap API and returns structured data.
  */
 
+require('dotenv').config({ quiet: true });
 const https = require('https');
 const fs = require('fs');
 const path = require('path');

@@ -615,6 +615,8 @@ Save Recipe enables quick storage of recipe titles, URLs, or both to a favourite
 
 Telegram Poll handlers enable natural language poll creation, vote tracking, and automatic resolution with household-context-aware tie-breaking. The agent uses intent detection — there is NO /poll command.
 
+**⚠️ CRITICAL: ALL poll requests must use `node -e` with `runTask()` object format to avoid shell quoting issues. This ensures proper parsing through the `read-msg.js` normalization layer.**
+
 ### Trigger Phrase Table
 
 The user provides the question AND options in a single message.
@@ -629,17 +631,45 @@ The user provides the question AND options in a single message.
 
 ### Parsing Rules for Poll Creation
 
-1. Detect poll intent: message contains a question with 2-4 distinct options, often separated by "or", commas, or listed after a colon
-2. Extract the question (the part before options) and the options (2-4 choices)
-3. If the bot can't parse a clear question + options, ask for clarification: "I'd love to set up a poll! What's the question and what are the options?"
-4. Call: `node tasks/index.js "poll create question=QUESTION options=OPTION1,OPTION2,OPTION3"`
-5. Confirm to the user: "Poll created! 📊 Vote in the group chat."
+**ALL poll requests must use the `read-msg.js` normalization layer via `tasks/index.js`.**
+
+1. **Detect poll intent:** message contains a question with 2-4 distinct options, often separated by "or", commas, or listed after a colon
+2. **Extract question and options:** Parse the message to identify:
+   - The question (the part that asks something)
+   - The options (2-4 distinct choices)
+3. **If unclear or ambiguous, ASK FOR CLARIFICATION instead of guessing:**
+   - Missing clear question: "I'd love to set up a poll! What's the question?"
+   - Unclear options: "What are the options? (Give me 2-4 choices)"
+   - Only 1 option: "That's just one option! What else should I put on the poll?"
+   - More than 4 options: "I can do up to 4 options. Which ones should I include?"
+4. **Format and call the task system:**
+   - Use the object format via Node.js to avoid shell quoting issues
+   - Question parameter: full question text as a string
+   - Options parameter: comma-separated options (OPTION1,OPTION2,OPTION3)
+   - **Command format:** `node -e "const {runTask} = require('./tasks/index.js'); runTask({task: 'poll', intent: 'create', parameters: {question: 'QUESTION TEXT', options: 'OPTION1,OPTION2,OPTION3'}}).then(r => console.log(JSON.stringify(r, null, 2)));"`
+5. **Confirm to user:** "Poll created! 📊 Vote in the group chat."
+
+**Command Format Examples:**
+
+| User Input | Clear? | Agent Action | Command |
+|---|---|---|---|
+| "should we do tacos or pizza" | ✅ Yes | Create poll | `node -e "const {runTask} = require('./tasks/index.js'); runTask({task: 'poll', intent: 'create', parameters: {question: 'Should we do tacos or pizza?', options: 'Tacos,Pizza'}}).then(r => console.log(JSON.stringify(r, null, 2)));"` |
+| "what's for dinner: chicken, beef, fish" | ✅ Yes | Create poll | `node -e "const {runTask} = require('./tasks/index.js'); runTask({task: 'poll', intent: 'create', parameters: {question: 'What\\'s for dinner?', options: 'Chicken,Beef,Fish'}}).then(r => console.log(JSON.stringify(r, null, 2)));"` |
+| "pizza tacos burgers" | ✅ Yes (implied) | Create poll with inferred question | `node -e "const {runTask} = require('./tasks/index.js'); runTask({task: 'poll', intent: 'create', parameters: {question: 'What should we have?', options: 'Pizza,Tacos,Burgers'}}).then(r => console.log(JSON.stringify(r, null, 2)));"` |
+| "let's vote on something" | ❌ No | Ask clarification | "I'd love to set up a poll! What's the question and what are the options?" |
+| "tacos" (only 1 option) | ❌ No | Ask clarification | "That's just one option! What else should I put on the poll?" |
+
+**Critical Rules:**
+- Use the Node.js object format to avoid shell quoting issues
+- Escape single quotes in question/options with `\\'`
+- Do NOT guess if the message is unclear — ask for clarification
+- Comma-separate options with NO spaces after commas
 
 ### Handling Poll Answers (poll_answer updates)
 
 When the platform delivers a `poll_answer` update (a user voted on a poll):
 1. Extract the user ID and selected option index from the update
-2. Call: `node tasks/index.js "poll vote userId=USER_ID optionId=OPTION_INDEX"`
+2. Call: `node -e "const {runTask} = require('./tasks/index.js'); runTask({task: 'poll', intent: 'vote', parameters: {userId: 'USER_ID', optionId: OPTION_INDEX}}).then(r => console.log(JSON.stringify(r, null, 2)));"`
 3. The task system handles everything: recording the vote, detecting ties, tie-breaking, closing the poll, and sending announcements
 4. If the result says `resolved: true` with `tie: true`, the bot already sent the announcement via Telegram API — no additional message needed from the agent
 5. If the result says `resolved: true` with `silent: true` (both agreed), the poll is already closed — no message needed
@@ -647,7 +677,7 @@ When the platform delivers a `poll_answer` update (a user voted on a poll):
 
 ### Handling Poll Timeouts (heartbeat integration)
 
-During heartbeat, run: `node tasks/index.js "poll check-timeout"`
+During heartbeat, run: `node -e "const {runTask} = require('./tasks/index.js'); runTask({task: 'poll', intent: 'check-timeout', parameters: {}}).then(r => console.log(JSON.stringify(r, null, 2)));"`
 - If result has `timedOut: true`: the bot already resolved and announced it. Log it in daily memory.
 - If result has `hasActivePoll: false`: nothing to do.
 - If result has `timedOut: false`: poll still active, no action needed.
@@ -658,14 +688,14 @@ During heartbeat, run: `node tasks/index.js "poll check-timeout"`
 
 **Input:** "what should we have for dinner tonight: tacos, pizza, or sushi?"
 **Parse:** question="What should we have for dinner tonight?", options=["Tacos", "Pizza", "Sushi"]
-**Action:** `node tasks/index.js "poll create question=What should we have for dinner tonight? options=Tacos,Pizza,Sushi"`
+**Action:** `node -e "const {runTask} = require('./tasks/index.js'); runTask({task: 'poll', intent: 'create', parameters: {question: 'What should we have for dinner tonight?', options: 'Tacos,Pizza,Sushi'}}).then(r => console.log(JSON.stringify(r, null, 2)));"`
 **Response:** "Poll's up! 📊 Vote away!"
 
 **Example 2 — Simple either/or:**
 
 **Input:** "should we do movie night or game night"
 **Parse:** question="Movie night or game night?", options=["Movie night", "Game night"]
-**Action:** `node tasks/index.js "poll create question=Movie night or game night? options=Movie night,Game night"`
+**Action:** `node -e "const {runTask} = require('./tasks/index.js'); runTask({task: 'poll', intent: 'create', parameters: {question: 'Movie night or game night?', options: 'Movie night,Game night'}}).then(r => console.log(JSON.stringify(r, null, 2)));"`
 **Response:** "Poll created! 📊"
 
 **Example 3 — Bot can't parse:**
@@ -694,20 +724,29 @@ After a poll resolves (by votes or timeout), the winning option may trigger a fo
 
 | DO | DO NOT | WHY |
 |---|---|---|
+| Use `node -e` with `runTask()` object format | Use shell string format with quoted parameters | Object format avoids shell quoting issues and ensures proper parsing |
+| Ask for clarification if message is unclear or ambiguous | Guess what the user meant or create a poll without clear intent | Bad polls waste everyone's time; clarity is required |
 | Detect poll intent from natural language | Require a /poll command | Per user decision: natural language, no commands |
 | Send poll immediately when intent is clear | Ask for confirmation/preview before sending | Per user decision: no preview step |
 | Let the task system handle tie-breaking and announcements | Try to handle tie-break logic in agent instructions | Task system has the logic; agent just calls intents |
 | Check poll timeout during heartbeat | Skip timeout checks | Stale polls should auto-resolve |
 | Update meal plan after dinner poll resolves | Update meal plan for non-food polls | Only meal-related polls trigger downstream meal updates |
-| Ask for clarification if question + options unclear | Guess what the user meant | Bad polls waste everyone's time |
 
 ### Edge Cases
 
-- **Only 1 option detected:** "let's vote on tacos" — Ask: "That's just one option! What else should I put on the poll?"
-- **More than 4 options:** "A, B, C, D, E" — Ask: "I can do up to 4 options. Which ones should I include?"
-- **Poll already active:** Return the existing poll question and suggest closing it first
-- **User votes on a non-bot poll:** poll_answer update won't match any active poll — task returns "No active poll" error, agent ignores silently
-- **Bot can't determine if message is a poll request:** When in doubt, don't create a poll. Only create when there's a clear question + multiple options.
+When unclear, ALWAYS ask for clarification. Never guess.
+
+| Scenario | Agent Action | Example Response |
+|---|---|---|
+| Only 1 option detected | Ask for more options | "That's just one option! What else should I put on the poll?" |
+| More than 4 options detected | Ask which to include | "I can do up to 4 options. Which ones should I include?" |
+| No clear question | Ask for the question | "I'd love to set up a poll! What's the question?" |
+| Options unclear | Ask for clarification | "What are the options? (Give me 2-4 choices)" |
+| Ambiguous message | Don't create poll, ask | "Did you want to create a poll? If so, what's the question and what are the options?" |
+| Poll already active | Inform user | "There's already a poll running! Let that one finish first, or I can close it for you." |
+| User votes on non-bot poll | Ignore silently | (Task returns "No active poll" error — no action needed) |
+
+**Golden Rule:** When in doubt, don't create a poll. Only create when there's a clear question + 2-4 distinct options.
 
 ---
 

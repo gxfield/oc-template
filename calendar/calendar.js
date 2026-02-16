@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '..', '.env'), quiet: true });
 const { google } = require('googleapis');
 const fs = require('fs');
-const path = require('path');
 
 // ============================================================
 // TIMEZONE CONFIG — Pacific Time (America/Los_Angeles)
@@ -26,21 +27,42 @@ function loadConfig() {
 }
 
 function getAuthClient() {
-  try {
-    const allCreds = JSON.parse(fs.readFileSync(CREDENTIALS_PATH, 'utf8'));
-    const credentials = allCreds.google_calendar;
-    if (!credentials) {
-      console.error('❌ "google_calendar" key not found in credentials.json.');
+  let credentials;
+
+  // Try to load from environment variables first
+  if (process.env.GOOGLE_CALENDAR_PRIVATE_KEY && process.env.GOOGLE_CALENDAR_CLIENT_EMAIL) {
+    credentials = {
+      type: process.env.GOOGLE_CALENDAR_TYPE,
+      project_id: process.env.GOOGLE_CALENDAR_PROJECT_ID,
+      private_key_id: process.env.GOOGLE_CALENDAR_PRIVATE_KEY_ID,
+      private_key: process.env.GOOGLE_CALENDAR_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      client_email: process.env.GOOGLE_CALENDAR_CLIENT_EMAIL,
+      client_id: process.env.GOOGLE_CALENDAR_CLIENT_ID,
+      auth_uri: process.env.GOOGLE_CALENDAR_AUTH_URI,
+      token_uri: process.env.GOOGLE_CALENDAR_TOKEN_URI,
+      auth_provider_x509_cert_url: process.env.GOOGLE_CALENDAR_AUTH_PROVIDER_CERT_URL,
+      client_x509_cert_url: process.env.GOOGLE_CALENDAR_CLIENT_CERT_URL,
+      universe_domain: process.env.GOOGLE_CALENDAR_UNIVERSE_DOMAIN
+    };
+  } else {
+    // Fallback to credentials.json
+    try {
+      const allCreds = JSON.parse(fs.readFileSync(CREDENTIALS_PATH, 'utf8'));
+      credentials = allCreds.google_calendar;
+      if (!credentials) {
+        console.error('❌ "google_calendar" key not found in credentials.json.');
+        process.exit(1);
+      }
+    } catch (err) {
+      console.error('❌ Google Calendar credentials not found in environment or credentials.json.');
       process.exit(1);
     }
-    return new google.auth.GoogleAuth({
-      credentials,
-      scopes: ['https://www.googleapis.com/auth/calendar'],
-    });
-  } catch (err) {
-    console.error('❌ credentials.json not found or invalid.');
-    process.exit(1);
   }
+
+  return new google.auth.GoogleAuth({
+    credentials,
+    scopes: ['https://www.googleapis.com/auth/calendar'],
+  });
 }
 
 /**

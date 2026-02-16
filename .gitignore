@@ -6,6 +6,7 @@ node_modules/
 
 # Secrets & credentials
 credentials.json
+.env
 
 # Runtime state
 memory/

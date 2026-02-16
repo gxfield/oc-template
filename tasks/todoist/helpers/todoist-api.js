@@ -3,6 +3,7 @@
  * Provides credential loading and HTTP request helper for all todoist helpers.
  */
 
+require('dotenv').config({ quiet: true });
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
@@ -14,22 +15,34 @@ const path = require('path');
  */
 function loadCredentials() {
   let apiKey = process.env.TODOIST_API_KEY;
-  let projects = null;
+  let projects = {};
 
-  // Try credentials.json
-  try {
-    const creds = JSON.parse(
-      fs.readFileSync(path.join(__dirname, '..', '..', '..', 'credentials.json'), 'utf8')
-    );
-    if (!apiKey) apiKey = creds.todoist_api_key;
-    if (creds.todoist_projects) projects = creds.todoist_projects;
-  } catch (_) {}
+  // Load projects from environment variables
+  if (process.env.TODOIST_PROJECT_TODOS) {
+    projects.todos = process.env.TODOIST_PROJECT_TODOS;
+  }
+  if (process.env.TODOIST_PROJECT_SHOPPING) {
+    projects.shopping = process.env.TODOIST_PROJECT_SHOPPING;
+  }
+
+  // Fallback to credentials.json if not in environment
+  if (!apiKey || (!projects.todos && !projects.shopping)) {
+    try {
+      const creds = JSON.parse(
+        fs.readFileSync(path.join(__dirname, '..', '..', '..', 'credentials.json'), 'utf8')
+      );
+      if (!apiKey) apiKey = creds.todoist_api_key;
+      if (creds.todoist_projects && (!projects.todos && !projects.shopping)) {
+        projects = creds.todoist_projects;
+      }
+    } catch (_) {}
+  }
 
   if (!apiKey) {
-    throw new Error('todoist_api_key not found in environment or credentials.json');
+    throw new Error('TODOIST_API_KEY not found in environment or credentials.json');
   }
   if (!projects || (!projects.todos && !projects.shopping)) {
-    throw new Error('todoist_projects not found in credentials.json (need project IDs for todos and/or shopping)');
+    throw new Error('TODOIST_PROJECT_* variables not found in environment or todoist_projects not found in credentials.json');
   }
 
   return { apiKey, projects };
