@@ -611,6 +611,106 @@ Save Recipe enables quick storage of recipe titles, URLs, or both to a favourite
 
 ---
 
+## 📊 Telegram Polls
+
+Telegram Poll handlers enable natural language poll creation, vote tracking, and automatic resolution with household-context-aware tie-breaking. The agent uses intent detection — there is NO /poll command.
+
+### Trigger Phrase Table
+
+The user provides the question AND options in a single message.
+
+| Trigger Pattern | Action |
+|---|---|
+| "let's vote on X: option1, option2" | Create poll with question X and given options |
+| "poll: X? option1 or option2" | Create poll |
+| "should we do X or Y" | Create poll with question "Should we do X or Y?" and options X, Y |
+| "what should we have for dinner: tacos, pizza, or sushi" | Create poll |
+| "vote: X or Y or Z" | Create poll |
+
+### Parsing Rules for Poll Creation
+
+1. Detect poll intent: message contains a question with 2-4 distinct options, often separated by "or", commas, or listed after a colon
+2. Extract the question (the part before options) and the options (2-4 choices)
+3. If the bot can't parse a clear question + options, ask for clarification: "I'd love to set up a poll! What's the question and what are the options?"
+4. Call: `node tasks/index.js "poll create question=QUESTION options=OPTION1,OPTION2,OPTION3"`
+5. Confirm to the user: "Poll created! 📊 Vote in the group chat."
+
+### Handling Poll Answers (poll_answer updates)
+
+When the platform delivers a `poll_answer` update (a user voted on a poll):
+1. Extract the user ID and selected option index from the update
+2. Call: `node tasks/index.js "poll vote userId=USER_ID optionId=OPTION_INDEX"`
+3. The task system handles everything: recording the vote, detecting ties, tie-breaking, closing the poll, and sending announcements
+4. If the result says `resolved: true` with `tie: true`, the bot already sent the announcement via Telegram API — no additional message needed from the agent
+5. If the result says `resolved: true` with `silent: true` (both agreed), the poll is already closed — no message needed
+6. If the result says `recorded: true` (still waiting), no action needed — just wait for the other vote
+
+### Handling Poll Timeouts (heartbeat integration)
+
+During heartbeat, run: `node tasks/index.js "poll check-timeout"`
+- If result has `timedOut: true`: the bot already resolved and announced it. Log it in daily memory.
+- If result has `hasActivePoll: false`: nothing to do.
+- If result has `timedOut: false`: poll still active, no action needed.
+
+### Input/Output Examples
+
+**Example 1 — Create poll:**
+
+**Input:** "what should we have for dinner tonight: tacos, pizza, or sushi?"
+**Parse:** question="What should we have for dinner tonight?", options=["Tacos", "Pizza", "Sushi"]
+**Action:** `node tasks/index.js "poll create question=What should we have for dinner tonight? options=Tacos,Pizza,Sushi"`
+**Response:** "Poll's up! 📊 Vote away!"
+
+**Example 2 — Simple either/or:**
+
+**Input:** "should we do movie night or game night"
+**Parse:** question="Movie night or game night?", options=["Movie night", "Game night"]
+**Action:** `node tasks/index.js "poll create question=Movie night or game night? options=Movie night,Game night"`
+**Response:** "Poll created! 📊"
+
+**Example 3 — Bot can't parse:**
+
+**Input:** "let's vote on something"
+**Response:** "I'd love to set up a poll! What's the question and what are the options? (Give me 2-4 choices)"
+
+**Example 4 — Poll already active:**
+
+**Input:** "let's vote: pizza or burgers"
+**Action:** Task returns error about existing active poll
+**Response:** "There's already a poll running! Let that one finish first, or I can close it for you."
+
+### Downstream Actions
+
+After a poll resolves (by votes or timeout), the winning option may trigger a follow-up action based on context:
+
+| Poll Context | Downstream Action |
+|---|---|
+| Dinner/meal poll (question contains dinner, meal, eat, food, lunch) | Update tonight's entry in `household/meals/this-week.md` with the winning option |
+| Other polls | No automatic action — just announce the result |
+
+**Implementation:** After receiving a resolved poll result with a winner, check if the question is meal-related. If so, get today's day name from `node calendar/calendar.js now`, read `household/meals/this-week.md`, update the matching day line with the winner, write file back.
+
+### DO / DO NOT for Polls
+
+| DO | DO NOT | WHY |
+|---|---|---|
+| Detect poll intent from natural language | Require a /poll command | Per user decision: natural language, no commands |
+| Send poll immediately when intent is clear | Ask for confirmation/preview before sending | Per user decision: no preview step |
+| Let the task system handle tie-breaking and announcements | Try to handle tie-break logic in agent instructions | Task system has the logic; agent just calls intents |
+| Check poll timeout during heartbeat | Skip timeout checks | Stale polls should auto-resolve |
+| Update meal plan after dinner poll resolves | Update meal plan for non-food polls | Only meal-related polls trigger downstream meal updates |
+| Ask for clarification if question + options unclear | Guess what the user meant | Bad polls waste everyone's time |
+
+### Edge Cases
+
+- **Only 1 option detected:** "let's vote on tacos" — Ask: "That's just one option! What else should I put on the poll?"
+- **More than 4 options:** "A, B, C, D, E" — Ask: "I can do up to 4 options. Which ones should I include?"
+- **Poll already active:** Return the existing poll question and suggest closing it first
+- **User votes on a non-bot poll:** poll_answer update won't match any active poll — task returns "No active poll" error, agent ignores silently
+- **Bot can't determine if message is a poll request:** When in doubt, don't create a poll. Only create when there's a clear question + multiple options.
+
+---
+
 ## Edge Cases for Telegram Command Parsing
 
 ### Ambiguous commands
