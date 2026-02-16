@@ -51,6 +51,7 @@ All decisions logged in PROJECT.md Key Decisions table.
 - v1.0 shipped (Phases 1-6, Phase 4 deferred) — 2026-02-10
 - v2.0 shipped (Phases 7-10) — 2026-02-13
 - Phase 1 added: Todoist Fix + Media Server Research
+- Phase 2 added: add the ability for the bot to create a telegram poll
 
 ### Pending Todos
 
@@ -62,9 +63,9 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-15
-Stopped at: Completed 01-01-PLAN.md Todoist integration fix
-Resume file: None
+Last session: 2026-02-16
+Stopped at: Phase 2 context gathered
+Resume file: .planning/phases/02-add-the-ability-for-the-bot-to-create-a-telegram-poll/02-CONTEXT.md
 
 ---
-*Last updated: 2026-02-15*
+*Last updated: 2026-02-16*
