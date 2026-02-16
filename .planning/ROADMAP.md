@@ -53,3 +53,14 @@
 Plans:
 - [ ] 01-01-PLAN.md -- Fix Todoist integration (create credentials.json, verify all intents)
 - [ ] 01-02-PLAN.md -- Media server feasibility research document
+
+### Phase 2: add the ability for the bot to create a telegram poll
+
+**Goal:** Add natural-language Telegram poll creation with tie-breaking AI voter and downstream household actions (meal plan updates)
+**Depends on:** Phase 1
+**Plans:** 3 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Telegram Bot API helper + poll task module (send, stop, state)
+- [ ] 02-02-PLAN.md — Vote processing, tie-break logic, timeout handling
+- [ ] 02-03-PLAN.md — Agent documentation (TOOLS.md, QUICKSTART.md, AGENTS.md, HEARTBEAT.md)
