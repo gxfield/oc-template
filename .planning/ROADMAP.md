@@ -64,3 +64,13 @@ Plans:
 - [ ] 02-01-PLAN.md — Telegram Bot API helper + poll task module (send, stop, state)
 - [ ] 02-02-PLAN.md — Vote processing, tie-break logic, timeout handling
 - [ ] 02-03-PLAN.md — Agent documentation (TOOLS.md, QUICKSTART.md, AGENTS.md, HEARTBEAT.md)
+
+### Phase 3: local_config.json to store household specific info like city & temperature
+
+**Goal:** Centralize household-specific defaults (city, timezone, temperature units) in a single local_config.json file with loader module, replacing hardcoded values in weather task and cache
+**Depends on:** Phase 2
+**Plans:** 2 plans
+
+Plans:
+- [ ] 03-01-PLAN.md -- Create local_config.json + loader module, wire into weather task and cache
+- [ ] 03-02-PLAN.md -- Document config in TOOLS.md and QUICKSTART.md
