@@ -7,9 +7,7 @@ require('dotenv').config({ quiet: true });
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
-
-const DEFAULT_LOCATION = 'Seattle,WA,US';
-const DEFAULT_UNITS = 'imperial';
+const { loadLocalConfig } = require('../../local-config');
 
 /**
  * Helper function to make HTTPS GET requests and return JSON.
@@ -49,8 +47,9 @@ function httpsGet(url) {
  */
 async function getWeather(parameters, context) {
   // Fill defaults when parameters are missing
-  const location = parameters.location || DEFAULT_LOCATION;
-  const units = parameters.units || DEFAULT_UNITS;
+  const config = loadLocalConfig();
+  const location = parameters.location || config.city;
+  const units = parameters.units || config.units;
 
   // Check for API key: env var first, then credentials.json
   let apiKey = process.env.OPENWEATHER_API_KEY;

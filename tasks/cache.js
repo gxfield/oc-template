@@ -5,6 +5,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { loadLocalConfig } = require('./local-config');
 
 const CACHE_FILE = path.resolve(__dirname, '../memory/cache.json');
 
@@ -14,7 +15,7 @@ const CACHE_FILE = path.resolve(__dirname, '../memory/cache.json');
  */
 function todayPacific() {
   const formatter = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/Los_Angeles',
+    timeZone: loadLocalConfig().timezone,
     year: 'numeric',
     month: '2-digit',
     day: '2-digit'
