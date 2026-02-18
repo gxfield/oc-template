@@ -11,6 +11,15 @@ You are in Pacific Time (America/Los_Angeles). The system clock is UTC.
 - NEVER add "Z" or timezone suffix to event times
 - All times shown to user must be Pacific with AM/PM
 
+## Household Config
+
+Defaults live in `local_config.json` (workspace root):
+- **City:** `Seattle,WA,US` (weather default)
+- **Units:** `imperial` (Fahrenheit)
+- **Timezone:** `America/Los_Angeles` (cache resets)
+
+See TOOLS.md "Household Configuration" for details.
+
 ## Calendar
 
 | Task | Command |
