@@ -9,11 +9,11 @@ See: .planning/PROJECT.md (updated 2026-02-13)
 
 ## Current Position
 
-Phase: 02-add-the-ability-for-the-bot-to-create-a-telegram-poll
-Status: Complete - all 3 plans finished
-Last activity: 2026-02-16 — Poll feature fully documented in agent instructions
+Phase: 03-local-config-json-to-store-household-specific-info-like-city-temperature
+Status: Complete - all 2 plans finished
+Last activity: 2026-02-18 — local_config.json created and documented in agent instruction files
 
-Progress: [██████████░░░░░░░░░░] 100% (3 of 3 plans complete in Phase 02)
+Progress: [██████████░░░░░░░░░░] 100% (2 of 2 plans complete in Phase 03)
 
 ## Performance Metrics
 
@@ -37,6 +37,7 @@ Progress: [██████████░░░░░░░░░░] 100% (3
 | 10. Weather Task | 1 | 1.35 min | 1.35 min |
 | 01. Todoist Fix + Media Server Research | 3 | 4.43 min | 1.48 min |
 | 02. Telegram Poll Feature | 3 | 5.90 min | 1.97 min |
+| 03. Local Config JSON | 2 | 1 min | 0.5 min |
 
 ## Accumulated Context
 
@@ -51,6 +52,8 @@ All decisions logged in PROJECT.md Key Decisions table.
 - [Phase 02]: Bot stays silent on agreement, announces tie-breaks with household-context reasoning
 - [Phase 02]: Shared tie-break logic extracts meal-context heuristics to reusable module
 - [Phase 02]: Natural language poll detection documented with trigger phrase table for agent reliability
+- [Phase 03]: Household Configuration section placed before feature sections in TOOLS.md as cross-cutting concern
+- [Phase 03]: QUICKSTART.md config section kept under 8 lines to preserve context efficiency for cheap LLMs
 
 ### Roadmap Evolution
 
@@ -58,6 +61,7 @@ All decisions logged in PROJECT.md Key Decisions table.
 - v2.0 shipped (Phases 7-10) — 2026-02-13
 - Phase 1 added: Todoist Fix + Media Server Research
 - Phase 2 added: add the ability for the bot to create a telegram poll
+- Phase 3 added: local_config.json to store household specific info like city & temperature
 
 ### Pending Todos
 
@@ -69,9 +73,9 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-16
-Stopped at: Completed 02-03-PLAN.md
-Resume file: .planning/phases/02-add-the-ability-for-the-bot-to-create-a-telegram-poll/02-03-SUMMARY.md
+Last session: 2026-02-18
+Stopped at: Completed 03-02-PLAN.md
+Resume file: .planning/phases/03-local-config-json-to-store-household-specific-info-like-city-temperature/03-02-SUMMARY.md
 
 ---
-*Last updated: 2026-02-16*
+*Last updated: 2026-02-18*

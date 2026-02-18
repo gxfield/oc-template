@@ -72,5 +72,5 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 03-01-PLAN.md -- Create local_config.json + loader module, wire into weather task and cache
-- [ ] 03-02-PLAN.md -- Document config in TOOLS.md and QUICKSTART.md
+- [x] 03-01-PLAN.md -- Create local_config.json + loader module, wire into weather task and cache
+- [x] 03-02-PLAN.md -- Document config in TOOLS.md and QUICKSTART.md
