@@ -38,6 +38,7 @@ Progress: [██████████░░░░░░░░░░] 100% (2
 | 01. Todoist Fix + Media Server Research | 3 | 4.43 min | 1.48 min |
 | 02. Telegram Poll Feature | 3 | 5.90 min | 1.97 min |
 | 03. Local Config JSON | 2 | 1 min | 0.5 min |
+| Phase 03 P01 | 1 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -52,6 +53,8 @@ All decisions logged in PROJECT.md Key Decisions table.
 - [Phase 02]: Bot stays silent on agreement, announces tie-breaks with household-context reasoning
 - [Phase 02]: Shared tie-break logic extracts meal-context heuristics to reusable module
 - [Phase 02]: Natural language poll detection documented with trigger phrase table for agent reliability
+- [Phase 03-01]: Use Object.assign(defaults, parsed) so missing keys in local_config.json fall back to defaults silently
+- [Phase 03-01]: Load config synchronously (readFileSync) consistent with existing loadConfig pattern in calendar.js
 - [Phase 03]: Household Configuration section placed before feature sections in TOOLS.md as cross-cutting concern
 - [Phase 03]: QUICKSTART.md config section kept under 8 lines to preserve context efficiency for cheap LLMs
 
@@ -74,8 +77,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-18
-Stopped at: Completed 03-02-PLAN.md
-Resume file: .planning/phases/03-local-config-json-to-store-household-specific-info-like-city-temperature/03-02-SUMMARY.md
+Stopped at: Completed 03-01-PLAN.md
+Resume file: .planning/phases/03-local-config-json-to-store-household-specific-info-like-city-temperature/03-01-SUMMARY.md
 
 ---
 *Last updated: 2026-02-18*
