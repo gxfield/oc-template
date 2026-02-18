@@ -42,6 +42,21 @@ If it's 10 PM Pacific on Feb 9, UTC is already Feb 10. Using UTC `date` for "tod
 - **WRONG:** Agent creates event with `2026-02-15T10:30:00Z`, event shows up at 2:30 AM Pacific.
 - **RIGHT:** Agent creates event with `2026-02-15T10:30:00` (no Z), shows up at 10:30 AM Pacific.
 
+## Household Configuration (local_config.json)
+
+Central config file for household-specific defaults.
+
+**Location:** `local_config.json` (workspace root)
+
+| Field | Purpose | Default | Used By |
+|-------|---------|---------|---------|
+| `city` | Default weather location | `Seattle,WA,US` | Weather task |
+| `timezone` | Timezone for cache daily reset | `America/Los_Angeles` | Cache module |
+| `units` | Temperature units (imperial/metric) | `imperial` | Weather task |
+
+- If file is missing, system uses built-in defaults (listed above)
+- Note: Calendar timezone is separate — managed in `calendar/config.json`
+
 ## 📅 Google Calendar CLI
 
 **Location:** `/calendar/calendar.js`  
