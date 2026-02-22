@@ -39,7 +39,13 @@ The agent must reliably understand and execute household management tasks -- eve
 
 <!-- Current scope. Building toward these. -->
 
-(None — planning next milestone)
+- [ ] Structured recipe library with markdown files (title, ingredients, instructions)
+- [ ] Agent can browse/search local recipe library for dinner suggestions
+- [ ] RSS recipe inspiration filtered to dinner recipes
+- [ ] Todoist section support for grocery items (Produce, Dairy, etc.)
+- [ ] Poll results update meal plan (this-week.md) for dinner decisions
+- [ ] Recipe ingredients auto-added to Todoist grocery list after poll resolution
+- [ ] End-to-end: poll → meal plan → recipe → grocery list pipeline
 
 ### Out of Scope
 
@@ -93,5 +99,14 @@ The agent must reliably understand and execute household management tasks -- eve
 | Silent bot on agreement | Only announces tie-breaks with reasoning, less noise | ✓ Good |
 | local_config.json at root | Single file for household defaults, Object.assign fallbacks | ✓ Good |
 
+## Current Milestone: v4.0 Recipe, Grocery & Poll Improvements
+
+**Goal:** Connect the poll → meal plan → grocery pipeline with a structured recipe library and Todoist section support.
+
+**Target features:**
+- Structured recipe library (markdown files, agent-browsable)
+- Todoist grocery list with section placement
+- Poll resolution triggers meal plan update + grocery population
+
 ---
-*Last updated: 2026-02-22 after v3.0 milestone*
+*Last updated: 2026-02-22 after starting v4.0 milestone*

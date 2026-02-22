@@ -5,13 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-02-22)
 
 **Core value:** The agent must reliably understand and execute household management tasks -- even when powered by cheaper LLMs -- without making mistakes with timezones, commands, or file formats.
-**Current focus:** Planning next milestone
+**Current focus:** v4.0 Recipe, Grocery & Poll Improvements
 
 ## Current Position
 
-Phase: Between milestones (v3.0 complete)
-Status: Planning next milestone
-Last activity: 2026-02-22 — v3.0 milestone archived
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-02-22 — Milestone v4.0 started
 
 ## Performance Metrics
 
