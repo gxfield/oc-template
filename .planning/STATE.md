@@ -9,10 +9,10 @@ See: .planning/PROJECT.md (updated 2026-02-22)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 4 — Recipe Library
 Plan: —
-Status: Defining requirements
-Last activity: 2026-02-22 — Milestone v4.0 started
+Status: Roadmap created, ready to plan Phase 4
+Last activity: 2026-02-22 — Roadmap created for v4.0
 
 ## Performance Metrics
 
@@ -49,6 +49,7 @@ All decisions logged in PROJECT.md Key Decisions table.
 - v1.0 shipped (Phases 1-6, Phase 4 deferred) — 2026-02-10
 - v2.0 shipped (Phases 7-10) — 2026-02-13
 - v3.0 shipped (Phases 1-3: Todoist fix, polls, local config) — 2026-02-22
+- v4.0 roadmap created (Phases 4-6: recipe library, grocery sections, pipeline) — 2026-02-22
 
 ### Pending Todos
 
@@ -61,8 +62,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-22
-Stopped at: Completed v3.0 milestone
-Resume file: .planning/MILESTONES.md
+Stopped at: Created v4.0 roadmap
+Resume file: .planning/ROADMAP.md
 
 ---
 *Last updated: 2026-02-22*

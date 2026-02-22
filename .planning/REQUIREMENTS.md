@@ -48,23 +48,23 @@ Requirements for v4.0 milestone. Each maps to roadmap phases.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| RCPE-01 | TBD | Pending |
-| RCPE-02 | TBD | Pending |
-| RCPE-03 | TBD | Pending |
-| RCPE-04 | TBD | Pending |
-| GROC-01 | TBD | Pending |
-| GROC-02 | TBD | Pending |
-| GROC-03 | TBD | Pending |
-| PIPE-01 | TBD | Pending |
-| PIPE-02 | TBD | Pending |
-| PIPE-03 | TBD | Pending |
-| PIPE-04 | TBD | Pending |
+| RCPE-01 | Phase 4 | Pending |
+| RCPE-02 | Phase 4 | Pending |
+| RCPE-03 | Phase 4 | Pending |
+| RCPE-04 | Phase 4 | Pending |
+| GROC-01 | Phase 5 | Pending |
+| GROC-02 | Phase 5 | Pending |
+| GROC-03 | Phase 5 | Pending |
+| PIPE-01 | Phase 6 | Pending |
+| PIPE-02 | Phase 6 | Pending |
+| PIPE-03 | Phase 6 | Pending |
+| PIPE-04 | Phase 6 | Pending |
 
 **Coverage:**
 - v4.0 requirements: 11 total
-- Mapped to phases: 0
-- Unmapped: 11 (pending roadmap creation)
+- Mapped to phases: 11
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-22*
-*Last updated: 2026-02-22 after initial definition*
+*Last updated: 2026-02-22 after roadmap creation*
