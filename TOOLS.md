@@ -626,6 +626,95 @@ Save Recipe enables quick storage of recipe titles, URLs, or both to a favourite
 
 ---
 
+## Recipe Library
+
+Structured recipe files the agent can browse, read, suggest, and create. All recipes live in `household/meals/recipes/` as markdown files with YAML frontmatter.
+
+### Recipe File Format
+
+**Location:** `household/meals/recipes/`
+
+**YAML frontmatter fields:**
+
+| Field | Type | Example |
+|---|---|---|
+| `title` | string | `Chicken Parmesan` |
+| `servings` | number | `4` |
+| `prep_time` | string | `15 min` |
+| `cook_time` | string | `30 min` |
+| `tags` | array of strings | `[chicken, italian, quick]` |
+
+**Section structure:**
+- `## Ingredients` — bullet list with quantity + unit + item (e.g., `- 2 cups flour`)
+- `## Instructions` — numbered steps
+
+**File naming:** kebab-case of the title (e.g., `Beef Tacos` → `beef-tacos.md`)
+
+### Trigger Phrase Table
+
+| Trigger Pattern | Action |
+|---|---|
+| "show recipes", "list recipes", "what recipes do we have" | List all recipe names + tags |
+| "show recipe [name]", "get recipe for [name]" | Display full recipe (Telegram-formatted) |
+| "suggest a [tag] dinner", "what [tag] recipes do we have" | Filter recipes by tag match |
+| "create recipe [dictation]" | Create new recipe file from dictation |
+
+Note: "save recipe [text]" still goes to `household/meals/favourites.md` (existing Save Recipe behavior). "Create recipe" triggers the structured file creation.
+
+### Browsing (List View)
+
+- Read all `.md` files in `household/meals/recipes/`
+- For each file, parse YAML frontmatter to get title and tags
+- Display as: `- {title} — {tag1}, {tag2}, ...`
+- If no recipes found: "No recipes in the library yet!"
+
+### Reading (Full View)
+
+- Find recipe file by matching title (case-insensitive, partial match OK)
+- Display Telegram-formatted output:
+
+```
+🍽️ {title}
+Servings: {servings} | Prep: {prep_time} | Cook: {cook_time}
+
+📝 Ingredients:
+• {ingredient1}
+• {ingredient2}
+...
+
+👨‍🍳 Instructions:
+1. {step1}
+2. {step2}
+...
+```
+
+### Suggesting (Tag-Based)
+
+- When user asks "suggest a chicken dinner" or "what quick recipes do we have"
+- Read all recipe frontmatter, filter by matching tag (case-insensitive)
+- Show matching recipes in list view format
+- If no matches: "No recipes with that tag. Here's everything: [list all]"
+
+### Creating (From Dictation)
+
+- User describes a recipe in chat, agent writes it as a `.md` file
+- Agent must format into the standard template (YAML frontmatter + sections)
+- File name: kebab-case of the title (e.g., "Beef Tacos" → `beef-tacos.md`)
+- Agent should ask for missing fields if not provided (especially tags)
+- If user just says "save recipe [text]", that still goes to favourites.md (existing behavior)
+
+### DO / DO NOT for Recipe Library
+
+| DO | DO NOT | WHY |
+|---|---|---|
+| Read all .md files in recipes/ for listing | Hardcode recipe names | New recipes added frequently |
+| Match tags case-insensitively | Require exact tag match | Users say "chicken" not "Chicken" |
+| Format output for Telegram (emoji headers, bullet lists) | Use markdown tables in output | Telegram doesn't render tables |
+| Create file name from title in kebab-case | Use random or numbered file names | Human-readable file names for external editing |
+| Ask for tags if user doesn't provide them during dictation | Skip tags silently | Tags enable search/suggestions |
+
+---
+
 ## 📊 Telegram Polls
 
 Telegram Poll handlers enable natural language poll creation, vote tracking, and automatic resolution with household-context-aware tie-breaking. The agent uses intent detection — there is NO /poll command.

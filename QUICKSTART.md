@@ -125,6 +125,21 @@ Sent proactively during heartbeat polls, 7-10 AM Pacific. Same 7-section format.
 - Store exactly as provided (title, URL, or both)
 - Response: "Saved! 📌 {text}"
 
+## Recipe Library (household/meals/recipes/)
+
+Structured markdown recipes with YAML frontmatter (title, servings, prep_time, cook_time, tags).
+
+| Task | Action |
+|------|--------|
+| List recipes | Read all `.md` in recipes/, show title + tags |
+| Show recipe | Find by title match, display Telegram-formatted |
+| Suggest by tag | Filter by tag: "suggest a chicken dinner" |
+| Create recipe | From dictation: write `.md` file in standard format |
+
+- Tags are freeform: "chicken", "quick", "low-carb", etc.
+- "save recipe X" still goes to favourites.md (titles/URLs)
+- "create recipe" writes a structured file to recipes/
+
 ## Polls
 
 Natural language poll creation — no /poll command needed.
