@@ -12,7 +12,7 @@ Requirements for v4.0 milestone. Each maps to roadmap phases.
 - [ ] **RCPE-01**: Agent can read and parse structured markdown recipe files from a recipes directory
 - [ ] **RCPE-02**: Agent can search/browse the recipe library to suggest dinner options
 - [ ] **RCPE-03**: Recipe markdown format includes title, servings, ingredients list, and instructions
-- [ ] **RCPE-04**: RSS recipe inspiration in briefings filtered to dinner recipes only
+- [x] **RCPE-04**: RSS recipe inspiration in briefings filtered to dinner recipes only
 
 ### Grocery
 
@@ -51,7 +51,7 @@ Requirements for v4.0 milestone. Each maps to roadmap phases.
 | RCPE-01 | Phase 4 | Pending |
 | RCPE-02 | Phase 4 | Pending |
 | RCPE-03 | Phase 4 | Pending |
-| RCPE-04 | Phase 4 | Pending |
+| RCPE-04 | Phase 4 | Complete |
 | GROC-01 | Phase 5 | Pending |
 | GROC-02 | Phase 5 | Pending |
 | GROC-03 | Phase 5 | Pending |

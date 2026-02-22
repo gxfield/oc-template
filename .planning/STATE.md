@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-02-22)
 ## Current Position
 
 Phase: 4 — Recipe Library
-Plan: —
-Status: Roadmap created, ready to plan Phase 4
-Last activity: 2026-02-22 — Roadmap created for v4.0
+Plan: 02 complete
+Status: In Progress — 1 of N plans complete
+Last activity: 2026-02-22 — Completed 04-02 (Briefing dinner-only RSS filter)
 
 ## Performance Metrics
 
@@ -37,12 +37,14 @@ Last activity: 2026-02-22 — Roadmap created for v4.0
 | 01. Todoist Fix + Research | 3 | 4.43 min | 1.48 min |
 | 02. Telegram Poll | 3 | 5.90 min | 1.97 min |
 | 03. Local Config | 2 | 1 min | 0.5 min |
+| Phase 04-recipe-library P02 | 1 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
 ### Decisions
 
 All decisions logged in PROJECT.md Key Decisions table.
+- [Phase 04-recipe-library]: Use keyword exclusion to filter dinner recipes in RSS briefing — simpler and more reliable for cheap LLMs
 
 ### Roadmap Evolution
 
@@ -62,8 +64,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-22
-Stopped at: Created v4.0 roadmap
-Resume file: .planning/ROADMAP.md
+Stopped at: Completed 04-02-PLAN.md
+Resume file: .planning/phases/04-recipe-library/04-02-SUMMARY.md
 
 ---
 *Last updated: 2026-02-22*

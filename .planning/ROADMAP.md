@@ -90,7 +90,7 @@ Plans:
 | 1. Instruction Hardening | v1.0 | 3/3 | Complete | 2026-02-09 |
 | 2. Quick Capture | v1.0 | 2/2 | Complete | 2026-02-09 |
 | 3. Meal Planning | v1.0 | 3/3 | Complete | 2026-02-09 |
-| 4. Bill Reminders | v1.0 | 0/TBD | Deferred | - |
+| 4. Bill Reminders | 1/2 | In Progress|  | - |
 | 5. Briefing System | v1.0 | 2/2 | Complete | 2026-02-09 |
 | 6. Daily Morning Briefing | v1.0 | 2/2 | Complete | 2026-02-10 |
 | 7. Task Infrastructure | v2.0 | 2/2 | Complete | 2026-02-11 |
