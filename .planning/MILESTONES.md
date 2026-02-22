@@ -51,3 +51,30 @@
 ---
 *Archived: 2026-02-13*
 
+
+## v3.0 — Features & Integrations
+
+**Completed:** 2026-02-22
+**Phases:** 1-3 (post-v2.0 numbering)
+**Last phase number:** 3
+
+### What Shipped
+- Fixed Todoist integration by migrating from deprecated REST v2 to v1 API with credentials.json
+- Media server (Plex/Overseerr/Sonarr on Umbrel) feasibility research document
+- Telegram poll task with natural-language creation, Bot API helper, and state persistence
+- Vote processing with household-context-aware tie-break AI and timeout handling
+- Poll system documented across TOOLS.md, QUICKSTART.md, AGENTS.md, HEARTBEAT.md
+- Centralized household config (city, timezone, temp units) in local_config.json with loader module
+
+### What Didn't Ship
+- Nothing deferred — all planned work completed
+
+### Key Metrics
+- Plans completed: 8 (across 3 phases)
+- Files changed: 48
+- Lines: +4,493 / -47
+- Timeline: 3 days (2026-02-15 -> 2026-02-17)
+
+---
+*Archived: 2026-02-22*
+

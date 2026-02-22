@@ -2,13 +2,14 @@
 
 ## Milestones
 
-- ✅ **v1.0 Bulletproof Instructions + Feature Expansion** - Phases 1-6 (shipped 2026-02-10)
-- ✅ **v2.0 Task Architecture** - Phases 7-10 (shipped 2026-02-13)
+- ✅ **v1.0 Bulletproof Instructions + Feature Expansion** — Phases 1-6 (shipped 2026-02-10)
+- ✅ **v2.0 Task Architecture** — Phases 7-10 (shipped 2026-02-13)
+- ✅ **v3.0 Features & Integrations** — Phases 1-3 (shipped 2026-02-22)
 
 ## Phases
 
 <details>
-<summary>✅ v1.0 Bulletproof Instructions + Feature Expansion (Phases 1-6) - SHIPPED 2026-02-10</summary>
+<summary>✅ v1.0 Bulletproof Instructions + Feature Expansion (Phases 1-6) — SHIPPED 2026-02-10</summary>
 
 - [x] Phase 1: Instruction Hardening (3/3 plans) — completed 2026-02-09
 - [x] Phase 2: Quick Capture (2/2 plans) — completed 2026-02-09
@@ -20,12 +21,21 @@
 </details>
 
 <details>
-<summary>✅ v2.0 Task Architecture (Phases 7-10) - SHIPPED 2026-02-13</summary>
+<summary>✅ v2.0 Task Architecture (Phases 7-10) — SHIPPED 2026-02-13</summary>
 
 - [x] Phase 7: Task Infrastructure (2/2 plans) — completed 2026-02-11
 - [x] Phase 8: Cache Layer (2/2 plans) — completed 2026-02-11
 - [x] Phase 9: Calendar Task (2/2 plans) — completed 2026-02-12
 - [x] Phase 10: Weather Task (1/1 plan) — completed 2026-02-13
+
+</details>
+
+<details>
+<summary>✅ v3.0 Features & Integrations (Phases 1-3) — SHIPPED 2026-02-22</summary>
+
+- [x] Phase 1: Todoist Fix + Media Server Research (2/2 plans) — completed 2026-02-15
+- [x] Phase 2: Telegram Poll Feature (3/3 plans) — completed 2026-02-16
+- [x] Phase 3: Local Config JSON (2/2 plans) — completed 2026-02-17
 
 </details>
 
@@ -43,34 +53,6 @@
 | 8. Cache Layer | v2.0 | 2/2 | Complete | 2026-02-11 |
 | 9. Calendar Task | v2.0 | 2/2 | Complete | 2026-02-12 |
 | 10. Weather Task | v2.0 | 1/1 | Complete | 2026-02-13 |
-
-### Phase 1: Todoist Fix + Media Server Research
-
-**Goal:** Fix Todoist integration (credentials.json) and research feasibility of managing Plex/Overseerr/Sonarr on Umbrel from Telegram bot
-**Depends on:** v2.0 Task Architecture
-**Plans:** 2 plans
-
-Plans:
-- [ ] 01-01-PLAN.md -- Fix Todoist integration (create credentials.json, verify all intents)
-- [ ] 01-02-PLAN.md -- Media server feasibility research document
-
-### Phase 2: add the ability for the bot to create a telegram poll
-
-**Goal:** Add natural-language Telegram poll creation with tie-breaking AI voter and downstream household actions (meal plan updates)
-**Depends on:** Phase 1
-**Plans:** 3 plans
-
-Plans:
-- [ ] 02-01-PLAN.md — Telegram Bot API helper + poll task module (send, stop, state)
-- [ ] 02-02-PLAN.md — Vote processing, tie-break logic, timeout handling
-- [ ] 02-03-PLAN.md — Agent documentation (TOOLS.md, QUICKSTART.md, AGENTS.md, HEARTBEAT.md)
-
-### Phase 3: local_config.json to store household specific info like city & temperature
-
-**Goal:** Centralize household-specific defaults (city, timezone, temperature units) in a single local_config.json file with loader module, replacing hardcoded values in weather task and cache
-**Depends on:** Phase 2
-**Plans:** 2 plans
-
-Plans:
-- [x] 03-01-PLAN.md -- Create local_config.json + loader module, wire into weather task and cache
-- [x] 03-02-PLAN.md -- Document config in TOOLS.md and QUICKSTART.md
+| 1. Todoist Fix + Research | v3.0 | 2/2 | Complete | 2026-02-15 |
+| 2. Telegram Poll | v3.0 | 3/3 | Complete | 2026-02-16 |
+| 3. Local Config | v3.0 | 2/2 | Complete | 2026-02-17 |

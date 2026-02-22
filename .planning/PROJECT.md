@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A personal household assistant workspace for Greg and his wife Danielle. An AI agent (running on OpenClaw) manages calendar, todos, shopping, meals, and household notes through Telegram and direct chat. The workspace uses markdown files for human-readable state, a Node.js task system for structured operations (calendar, weather), and a JSON file cache for performance.
+A personal household assistant workspace for Greg and his wife Danielle. An AI agent (running on OpenClaw) manages calendar, todos, shopping, meals, polls, and household notes through Telegram and direct chat. The workspace uses markdown files for human-readable state, a Node.js task system for structured operations (calendar, weather, polls, Todoist), a JSON file cache for performance, and a centralized local_config.json for household-specific settings.
 
 ## Core Value
 
@@ -29,6 +29,11 @@ The agent must reliably understand and execute household management tasks -- eve
 - ✓ JSON file cache with TTL and daily reset — v2.0
 - ✓ Calendar task module (wraps existing calendar.js) — v2.0
 - ✓ Weather task module (real API integration) — v2.0
+- ✓ Todoist integration (REST v1 API with credentials.json) — v3.0
+- ✓ Telegram poll creation with natural-language detection — v3.0
+- ✓ AI tie-break voting with household-context heuristics — v3.0
+- ✓ Centralized household config (local_config.json) — v3.0
+- ✓ Media server feasibility research (Overseerr/Sonarr/Plex) — v3.0
 
 ### Active
 
@@ -51,9 +56,12 @@ The agent must reliably understand and execute household management tasks -- eve
 - Calendar: Google Calendar API v3 via service account (danielle.demarchi@gmail.com)
 - Timezone: Pacific Time (America/Los_Angeles) — critical, source of most LLM errors
 - State storage: Markdown files in /household/ directory
-- Task system: 913 LOC JavaScript in tasks/ (orchestrator, cache, calendar, weather, echo)
+- Task system: JavaScript in tasks/ (orchestrator, cache, calendar, weather, poll, todoist, echo, local-config)
 - Cache: /memory/cache.json (TTL + daily reset, gitignored)
 - Weather: OpenWeatherMap API (requires OPENWEATHER_API_KEY env var)
+- Polls: Telegram Bot API with state persistence in /memory/poll-state.json
+- Todoist: REST v1 API via credentials.json
+- Config: local_config.json at workspace root (city, timezone, temperature units)
 - Wife (Danielle): Not yet using the system, wants it to work for both of them
 
 ## Constraints
@@ -79,6 +87,11 @@ The agent must reliably understand and execute household management tasks -- eve
 | Error payloads over throwing | Consistent LLMPayload interface, agent always gets structured response | ✓ Good |
 | Helper chaining via context | previousResult enables multi-step intents (remove → fetch) | ✓ Good |
 | Built-in https for API calls | No npm dependencies for weather API, keeps tasks self-contained | ✓ Good |
+| Todoist API v1 migration | REST v2 deprecated (410 Gone), v1 is stable | ✓ Good |
+| Built-in https for poll task | Consistent with todoist-api.js and weather patterns | ✓ Good |
+| 2-4 poll options, 60min timeout | Simple constraints, avoids overengineering | ✓ Good |
+| Silent bot on agreement | Only announces tie-breaks with reasoning, less noise | ✓ Good |
+| local_config.json at root | Single file for household defaults, Object.assign fallbacks | ✓ Good |
 
 ---
-*Last updated: 2026-02-13 after v2.0 milestone*
+*Last updated: 2026-02-22 after v3.0 milestone*
