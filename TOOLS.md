@@ -234,7 +234,7 @@ The agent must gather data from these 7 sources in order:
 4. **Meals:** Get today's day name from `node calendar/calendar.js now`, read `household/meals/this-week.md`, find matching day line
 5. **Bills:** Read `household/bills.md`, extract unpaid bills (`- [ ]` lines), filter to those with due date within next 7 days (compare to today's Pacific date from `node calendar/calendar.js now`)
 6. **Meat Reminder:** After getting tonight's dinner (step 4), check if the meal description contains any meat keyword: chicken, beef, pork, salmon, steak, turkey, lamb, fish, shrimp. Case-insensitive match. If match found, include meat reminder section. If no match or no dinner planned ("No plan"), skip entirely.
-7. **Recipe Inspiration:** Fetch RSS feed from `https://peaceloveandlowcarb.com/feed/`, extract 2-3 random recipe entries (title + link), format as bullet list.
+7. **Recipe Inspiration:** Fetch RSS feed from `https://peaceloveandlowcarb.com/feed/`, filter to dinner-appropriate recipes only, then pick 2-3 random entries (title + link). **Dinner filter:** Exclude entries whose title contains breakfast, snack, dessert, cookie, cake, muffin, smoothie, pancake, waffle, brownie, bar, treat, candy, fudge, dip, appetizer, drink, cocktail, latte (case-insensitive). Include everything else — the feed is primarily low-carb dinner recipes, so filtering out non-dinner keywords is sufficient. If fewer than 2 entries remain after filtering, show what's available.
 
 #### Output Format Template (Telegram-friendly)
 
@@ -270,7 +270,7 @@ Tonight's dinner is {meal} — don't forget to take meat out of the freezer!
 🍳 Recipe Inspiration
 • {Recipe Title} — {URL}
 • {Recipe Title} — {URL}
-{Always show this section. Pick 2-3 random entries from the RSS feed.}
+{Always show this section. Pick 2-3 random dinner recipes from the RSS feed (exclude breakfast, snack, dessert items).}
 ```
 
 #### Input/Output Examples
@@ -353,7 +353,7 @@ No bills due this week!
 | Show the original 5 sections plus Recipe Inspiration even if empty | Skip empty sections | User expects consistent format |
 | Show bill amounts and due dates | Show only bill names | User needs to know how much and when |
 | Check meat keywords case-insensitively against tonight's dinner description | Try to infer meat from meal names like "leftover" or "stir fry" without explicit keywords | Simple keyword match is reliable for cheap LLMs; inference is error-prone |
-| Fetch 2-3 random recipes from the RSS feed each time | Cache or repeat the same recipes | Variety keeps the section interesting |
+| Fetch RSS feed, filter out non-dinner items (breakfast, snack, dessert, cookies, etc.), then pick 2-3 random entries | Show unfiltered recipes or cache/repeat the same ones | User wants dinner inspiration only; variety keeps it interesting |
 
 #### Edge Cases
 
