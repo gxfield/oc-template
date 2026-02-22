@@ -37,6 +37,7 @@ Last activity: 2026-02-22 — Completed 04-02 (Briefing dinner-only RSS filter)
 | 01. Todoist Fix + Research | 3 | 4.43 min | 1.48 min |
 | 02. Telegram Poll | 3 | 5.90 min | 1.97 min |
 | 03. Local Config | 2 | 1 min | 0.5 min |
+| Phase 04-recipe-library P01 | 2 | 1 min | 0.5 min |
 | Phase 04-recipe-library P02 | 1 | 1 tasks | 1 files |
 
 ## Accumulated Context
@@ -44,6 +45,7 @@ Last activity: 2026-02-22 — Completed 04-02 (Briefing dinner-only RSS filter)
 ### Decisions
 
 All decisions logged in PROJECT.md Key Decisions table.
+- [Phase 04-recipe-library P01]: Recipe tags are freeform strings; "save recipe" routes to favourites.md, "create recipe" writes to recipes/ directory
 - [Phase 04-recipe-library]: Use keyword exclusion to filter dinner recipes in RSS briefing — simpler and more reliable for cheap LLMs
 
 ### Roadmap Evolution
@@ -64,8 +66,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-22
-Stopped at: Completed 04-02-PLAN.md
-Resume file: .planning/phases/04-recipe-library/04-02-SUMMARY.md
+Stopped at: Completed 04-01-PLAN.md and 04-02-PLAN.md (Phase 4 complete)
+Resume file: .planning/phases/04-recipe-library/04-01-SUMMARY.md
 
 ---
 *Last updated: 2026-02-22*

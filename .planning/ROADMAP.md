@@ -15,7 +15,7 @@
 - [x] Phase 1: Instruction Hardening (3/3 plans) — completed 2026-02-09
 - [x] Phase 2: Quick Capture (2/2 plans) — completed 2026-02-09
 - [x] Phase 3: Meal Planning (3/3 plans) — completed 2026-02-09
-- [ ] Phase 4: Bill Reminders — deferred
+- [x] Phase 4: Bill Reminders — deferred (completed 2026-02-22)
 - [x] Phase 5: Briefing System (2/2 plans) — completed 2026-02-09
 - [x] Phase 6: Daily Morning Briefing (2/2 plans) — completed 2026-02-10
 
@@ -90,7 +90,7 @@ Plans:
 | 1. Instruction Hardening | v1.0 | 3/3 | Complete | 2026-02-09 |
 | 2. Quick Capture | v1.0 | 2/2 | Complete | 2026-02-09 |
 | 3. Meal Planning | v1.0 | 3/3 | Complete | 2026-02-09 |
-| 4. Bill Reminders | 1/2 | In Progress|  | - |
+| 4. Bill Reminders | 2/2 | Complete   | 2026-02-22 | - |
 | 5. Briefing System | v1.0 | 2/2 | Complete | 2026-02-09 |
 | 6. Daily Morning Briefing | v1.0 | 2/2 | Complete | 2026-02-10 |
 | 7. Task Infrastructure | v2.0 | 2/2 | Complete | 2026-02-11 |
