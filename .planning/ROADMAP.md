@@ -42,7 +42,7 @@
 
 ### v4.0 Recipe, Grocery & Poll Improvements
 
-- [ ] **Phase 4: Recipe Library** - Structured recipe files the agent can read and search
+- [x] **Phase 4: Recipe Library** (2/2 plans) — completed 2026-02-22
 - [ ] **Phase 5: Grocery Section Support** - Todoist grocery list with section placement
 - [ ] **Phase 6: Poll-to-Grocery Pipeline** - End-to-end poll resolution through to grocery list
 
@@ -59,8 +59,8 @@
   4. RSS recipe inspiration in briefings shows only dinner recipes, not all categories
 **Plans**: 2 plans
 Plans:
-- [ ] 04-01-PLAN.md — Recipe format, directory, sample file, and agent instructions (browse, read, suggest, create)
-- [ ] 04-02-PLAN.md — RSS briefing dinner-only filter
+- [x] 04-01-PLAN.md — Recipe format, directory, sample file, and agent instructions (browse, read, suggest, create)
+- [x] 04-02-PLAN.md — RSS briefing dinner-only filter
 
 ### Phase 5: Grocery Section Support
 **Goal**: Agent can add grocery items to specific Todoist sections (Produce, Dairy, etc.)
@@ -100,6 +100,6 @@ Plans:
 | 1. Todoist Fix + Research | v3.0 | 2/2 | Complete | 2026-02-15 |
 | 2. Telegram Poll | v3.0 | 3/3 | Complete | 2026-02-16 |
 | 3. Local Config | v3.0 | 2/2 | Complete | 2026-02-17 |
-| 4. Recipe Library | v4.0 | 0/2 | Planning | - |
+| 4. Recipe Library | v4.0 | 2/2 | Complete | 2026-02-22 |
 | 5. Grocery Section Support | v4.0 | 0/TBD | Not started | - |
 | 6. Poll-to-Grocery Pipeline | v4.0 | 0/TBD | Not started | - |
