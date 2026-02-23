@@ -163,6 +163,7 @@ Natural language poll creation — no /poll command needed.
 - Bot votes only on ties, using household context (avoids repeat meals)
 - Auto-closes after both vote or on timeout
 - Meal polls update tonight's dinner in this-week.md
+- If winning meal matches a recipe in recipes/, auto-add ingredients to Todoist shopping with sections (no confirmation needed)
 
 ## Response Style
 
