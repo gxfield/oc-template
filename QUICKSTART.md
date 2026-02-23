@@ -53,6 +53,13 @@ Managed via Todoist task system (shared with Danielle).
 - **Add multiple:** Run separate add commands for each item
 - **Bought:** `node tasks/index.js "todoist done taskId=TASK_ID"`
 
+### Grocery Sections
+
+- **List sections:** `node tasks/index.js "todoist sections project=shopping"`
+- **Add to section:** `node tasks/index.js "todoist add project=shopping content=Milk section_id=SECTION_ID"`
+- **Recipe to grocery:** find recipe in `household/meals/recipes/`, extract item names (no quantities), add to shopping with sections
+- Always list sections first — never hardcode section IDs
+
 ## Notes (household/notes.md)
 
 Format: `- [YYYY-MM-DD h:mm AM/PM PT] Note text`
