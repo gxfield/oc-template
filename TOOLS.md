@@ -880,10 +880,30 @@ After a poll resolves (by votes or timeout), the winning option may trigger a fo
 
 | Poll Context | Downstream Action |
 |---|---|
-| Dinner/meal poll (question contains dinner, meal, eat, food, lunch) | Update tonight's entry in `household/meals/this-week.md` with the winning option |
+| Dinner/meal poll (question contains dinner, meal, eat, food, lunch) | Run full poll-to-grocery pipeline: update this-week.md, match recipe, add ingredients to shopping list |
 | Other polls | No automatic action — just announce the result |
 
-**Implementation:** After receiving a resolved poll result with a winner, check if the question is meal-related. If so, get today's day name from `node calendar/calendar.js now`, read `household/meals/this-week.md`, update the matching day line with the winner, write file back.
+### Poll-to-Grocery Pipeline
+
+When a dinner poll resolves, run the following pipeline in sequence:
+
+1. Poll resolves with a winner (via votes or timeout)
+2. Check if the poll is meal-related (question contains: dinner, meal, eat, food, lunch)
+3. If NOT meal-related: announce result, stop here
+4. Get today's day name: `node calendar/calendar.js now`
+5. Read `household/meals/this-week.md`, update the matching day line with the winning meal name, write file back
+6. Search `household/meals/recipes/` for a recipe matching the winning meal name (case-insensitive, partial match OK)
+7. If NO matching recipe found: stop here — the meal plan update is sufficient; do NOT try to infer ingredients from the meal name
+8. If recipe found: follow the "Recipe to Grocery List" workflow — read the recipe's `## Ingredients` section, strip quantities/units per the rules in that section, extract ingredient names only
+9. List Todoist sections: `node -e "const {runTask} = require('./tasks/index.js'); runTask({task: 'todoist', intent: 'sections', parameters: {project: 'shopping'}}).then(r => console.log(JSON.stringify(r, null, 2)));"`
+10. For each ingredient, match to the best section (Produce, Dairy, Meat, etc.) and add via: `node -e "const {runTask} = require('./tasks/index.js'); runTask({task: 'todoist', intent: 'add', parameters: {project: 'shopping', content: 'ITEM', section_id: 'SECTION_ID'}}).then(r => console.log(JSON.stringify(r, null, 2)));"`
+11. Confirm to user: "Updated [Day] dinner to [Meal]. Added X ingredients to the shopping list."
+
+**Important rules:**
+- The pipeline runs ONLY for meal-related polls, not all polls
+- If no recipe match is found, stop after updating this-week.md — do NOT infer ingredients from the meal name (that workflow requires user confirmation per existing Meal Planning rules)
+- When a recipe match IS found, ingredient addition proceeds WITHOUT user confirmation — ingredients come from a structured recipe file, not a vague meal name
+- See the "Recipe to Grocery List" section for quantity stripping rules (do not duplicate them here)
 
 ### DO / DO NOT for Polls
 
@@ -896,6 +916,7 @@ After a poll resolves (by votes or timeout), the winning option may trigger a fo
 | Let the task system handle tie-breaking and announcements | Try to handle tie-break logic in agent instructions | Task system has the logic; agent just calls intents |
 | Check poll timeout during heartbeat | Skip timeout checks | Stale polls should auto-resolve |
 | Update meal plan after dinner poll resolves | Update meal plan for non-food polls | Only meal-related polls trigger downstream meal updates |
+| Run full poll-to-grocery pipeline when dinner poll resolves AND recipe exists | Add inferred ingredients from meal name without confirmation | Only structured recipe files have reliable ingredient lists; vague meal names require user confirmation |
 
 ### Edge Cases
 
