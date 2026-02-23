@@ -201,6 +201,67 @@ Shopping lists are managed via the Todoist task system, not markdown files.
 **Response:** "Crossed off milk! 🛒"
 **Edge case:** If "milk" appears in multiple tasks (e.g., "Milk" and "Almond milk"), ask which one.
 
+### DO / DO NOT for Shopping
+
+| DO | DO NOT | WHY |
+|---|---|---|
+| Parse "eggs and milk" into 2 separate add commands | Add "eggs and milk" as a single item | User expects separate list items |
+| Ask which task if multiple match "bought milk" | Complete the first match silently | Could mark the wrong item done |
+| List sections before adding items to get current section IDs | Hardcode or guess section IDs | Section IDs can change; always get the live list |
+
+#### Grocery Sections
+
+Shopping items can be placed in specific Todoist sections (e.g., Produce, Dairy, Meat, Bakery).
+
+**List sections:** `node tasks/index.js "todoist sections project=shopping"` — always run this first to get current section IDs
+
+**Add item to section:** `node tasks/index.js "todoist add project=shopping content=Milk section_id=SECTION_ID"`
+
+**Workflow:**
+1. Run `node tasks/index.js "todoist sections project=shopping"` to get current section IDs
+2. Match the item to the best section by name (Produce, Dairy, Meat, etc.)
+3. Add the item with `section_id=SECTION_ID`
+
+If no matching section exists, add without `section_id` — item goes to project root and is still valid.
+
+| DO | DO NOT | WHY |
+|---|---|---|
+| Always list sections first to get current IDs | Hardcode section IDs | Section IDs can change |
+| Match item to section by common sense | Guess section IDs | Wrong section is worse than no section |
+| Add without section_id if no match | Create new sections | Sections are managed by the user, not the agent |
+
+#### Recipe to Grocery List
+
+**Trigger phrases:** "add ingredients from [recipe]", "grocery list from [recipe]", "shop for [recipe]"
+
+**Workflow:**
+1. Find recipe file in `household/meals/recipes/` (match by name, case-insensitive, partial match OK)
+2. Read the `## Ingredients` section of the recipe file
+3. Extract item names only — strip quantities, units, and preparation notes
+4. List Todoist sections: `node tasks/index.js "todoist sections project=shopping"`
+5. For each ingredient, match to the best section (Produce, Dairy, Meat, etc.) using common sense. If unsure, add without section.
+6. Add each item: `node tasks/index.js "todoist add project=shopping content=ITEM section_id=SECTION_ID"`
+
+**Quantity stripping rules:** Remove leading numbers, fractions, and units from each ingredient line:
+- Units to strip: cup, cups, tablespoon, tablespoons, tbsp, tsp, teaspoon, teaspoons, oz, ounce, ounces, lb, pound, pounds, clove, cloves
+- Remove trailing preparation phrases after comma: ", beaten", ", diced", ", chopped", ", minced", etc.
+- Examples:
+  - "4 boneless skinless chicken breasts" → "chicken breasts"
+  - "1 cup marinara sauce" → "marinara sauce"
+  - "2 eggs, beaten" → "eggs"
+  - "2 tablespoons olive oil" → "olive oil"
+  - "1/2 cup grated Parmesan cheese" → "Parmesan cheese"
+
+**Example:** Given `chicken-parmesan.md`, extract: chicken breasts, breadcrumbs, Parmesan cheese, eggs, marinara sauce, mozzarella cheese, olive oil, salt, pepper
+
+**Response format:** "Added X ingredients from [recipe name] to the shopping list: [item1, item2, ...]"
+
+| DO | DO NOT | WHY |
+|---|---|---|
+| Strip quantities and units; keep descriptive item names | Include quantities (user said "just item names") | User wants shopping items, not recipe amounts |
+| Skip salt/pepper/oil if user requests "skip pantry staples" | Always add every ingredient without asking | Common pantry items are usually already stocked |
+| List sections before adding each item | Hardcode or assume section IDs | IDs may change; always get current list |
+
 ### Notes
 
 **Parsing Examples:**
