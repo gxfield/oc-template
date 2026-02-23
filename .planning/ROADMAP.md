@@ -84,7 +84,9 @@ Plans:
   2. After the meal plan updates, the agent finds the matching recipe in the library and extracts its ingredients
   3. Extracted ingredients appear in the Todoist shopping project under the correct sections
   4. TOOLS.md and QUICKSTART.md document the new recipe browsing and grocery section commands
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 06-01-PLAN.md — Poll-to-grocery pipeline documentation (Downstream Actions expansion, QUICKSTART update)
 
 ## Progress
 
@@ -105,4 +107,4 @@ Plans:
 | 3. Local Config | v3.0 | 2/2 | Complete | 2026-02-17 |
 | 4. Recipe Library | v4.0 | 2/2 | Complete | 2026-02-22 |
 | 5. Grocery Section Support | v4.0 | 0/2 | Planning | - |
-| 6. Poll-to-Grocery Pipeline | v4.0 | 0/TBD | Not started | - |
+| 6. Poll-to-Grocery Pipeline | v4.0 | 0/1 | Planning | - |
