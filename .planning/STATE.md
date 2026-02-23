@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-02-22)
 ## Current Position
 
 Phase: 5 — Grocery Section Support
-Plan: Not started
-Status: Phase 4 (Recipe Library) complete, Phase 5 not yet planned
-Last activity: 2026-02-23 — Phase 4 UAT passed (5/5), marked complete
+Plan: 1 of 2 complete
+Status: In progress — 05-01 complete, 05-02 pending
+Last activity: 2026-02-23 — 05-01 complete: listSections helper + section_id in create-task
 
 ## Performance Metrics
 
@@ -39,6 +39,7 @@ Last activity: 2026-02-23 — Phase 4 UAT passed (5/5), marked complete
 | 03. Local Config | 2 | 1 min | 0.5 min |
 | Phase 04-recipe-library P01 | 2 | 1 min | 0.5 min |
 | Phase 04-recipe-library P02 | 1 | 1 tasks | 1 files |
+| Phase 05-grocery-section-support P01 | 1 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -47,6 +48,7 @@ Last activity: 2026-02-23 — Phase 4 UAT passed (5/5), marked complete
 All decisions logged in PROJECT.md Key Decisions table.
 - [Phase 04-recipe-library P01]: Recipe tags are freeform strings; "save recipe" routes to favourites.md, "create recipe" writes to recipes/ directory
 - [Phase 04-recipe-library]: Use keyword exclusion to filter dinner recipes in RSS briefing — simpler and more reliable for cheap LLMs
+- [Phase 05-grocery-section-support]: Default project for listSections is 'shopping' (grocery-focused use case); section_id is optional in create-task for backward compatibility
 
 ### Roadmap Evolution
 
@@ -66,8 +68,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-23
-Stopped at: Phase 4 UAT complete, Phase 5 needs planning
-Resume file: .planning/ROADMAP.md
+Stopped at: Completed 05-01-PLAN.md
+Resume file: .planning/phases/05-grocery-section-support/05-02-PLAN.md
 
 ---
 *Last updated: 2026-02-23*

@@ -16,8 +16,8 @@ Requirements for v4.0 milestone. Each maps to roadmap phases.
 
 ### Grocery
 
-- [ ] **GROC-01**: Todoist task `add` intent supports `section` parameter to place items in the correct store section
-- [ ] **GROC-02**: Agent can list available sections in the Todoist shopping project
+- [x] **GROC-01**: Todoist task `add` intent supports `section` parameter to place items in the correct store section
+- [x] **GROC-02**: Agent can list available sections in the Todoist shopping project
 - [ ] **GROC-03**: Recipe ingredients are extracted as item names (no quantities) and added to Todoist grocery list
 
 ### Pipeline
@@ -52,8 +52,8 @@ Requirements for v4.0 milestone. Each maps to roadmap phases.
 | RCPE-02 | Phase 4 | Complete |
 | RCPE-03 | Phase 4 | Complete |
 | RCPE-04 | Phase 4 | Complete |
-| GROC-01 | Phase 5 | Pending |
-| GROC-02 | Phase 5 | Pending |
+| GROC-01 | Phase 5 | Complete |
+| GROC-02 | Phase 5 | Complete |
 | GROC-03 | Phase 5 | Pending |
 | PIPE-01 | Phase 6 | Pending |
 | PIPE-02 | Phase 6 | Pending |
