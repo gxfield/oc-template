@@ -22,10 +22,10 @@ Requirements for v4.0 milestone. Each maps to roadmap phases.
 
 ### Pipeline
 
-- [ ] **PIPE-01**: Poll resolution for dinner/meal questions updates this-week.md with the winning option
-- [ ] **PIPE-02**: After meal plan update, agent identifies matching recipe in library and extracts ingredients
-- [ ] **PIPE-03**: Extracted ingredients are added to Todoist shopping with correct section placement
-- [ ] **PIPE-04**: Agent documentation updated (TOOLS.md, QUICKSTART.md) for new recipe and grocery workflows
+- [x] **PIPE-01**: Poll resolution for dinner/meal questions updates this-week.md with the winning option
+- [x] **PIPE-02**: After meal plan update, agent identifies matching recipe in library and extracts ingredients
+- [x] **PIPE-03**: Extracted ingredients are added to Todoist shopping with correct section placement
+- [x] **PIPE-04**: Agent documentation updated (TOOLS.md, QUICKSTART.md) for new recipe and grocery workflows
 
 ## Future Requirements
 
@@ -55,10 +55,10 @@ Requirements for v4.0 milestone. Each maps to roadmap phases.
 | GROC-01 | Phase 5 | Complete |
 | GROC-02 | Phase 5 | Complete |
 | GROC-03 | Phase 5 | Complete |
-| PIPE-01 | Phase 6 | Pending |
-| PIPE-02 | Phase 6 | Pending |
-| PIPE-03 | Phase 6 | Pending |
-| PIPE-04 | Phase 6 | Pending |
+| PIPE-01 | Phase 6 | Complete |
+| PIPE-02 | Phase 6 | Complete |
+| PIPE-03 | Phase 6 | Complete |
+| PIPE-04 | Phase 6 | Complete |
 
 **Coverage:**
 - v4.0 requirements: 11 total

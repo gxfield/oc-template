@@ -9,10 +9,10 @@ See: .planning/PROJECT.md (updated 2026-02-22)
 
 ## Current Position
 
-Phase: 5 — Grocery Section Support
-Plan: 2 of 2 complete
-Status: Complete — Phase 05 all plans done
-Last activity: 2026-02-23 — 05-02 complete: grocery section + recipe-to-grocery documentation in TOOLS.md and QUICKSTART.md
+Phase: 6 — Poll-to-Grocery Pipeline
+Plan: 1 of 1 complete
+Status: Complete — Phase 06 all plans done
+Last activity: 2026-02-23 — 06-01 complete: poll-to-grocery pipeline documentation in TOOLS.md and QUICKSTART.md
 
 ## Performance Metrics
 
@@ -41,6 +41,7 @@ Last activity: 2026-02-23 — 05-02 complete: grocery section + recipe-to-grocer
 | Phase 04-recipe-library P02 | 1 | 1 tasks | 1 files |
 | Phase 05-grocery-section-support P01 | 1 | 2 tasks | 3 files |
 | Phase 05-grocery-section-support P02 | 2 | 2 tasks | 2 files |
+| Phase 06-poll-to-grocery-pipeline P01 | 1 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -51,6 +52,7 @@ All decisions logged in PROJECT.md Key Decisions table.
 - [Phase 04-recipe-library]: Use keyword exclusion to filter dinner recipes in RSS briefing — simpler and more reliable for cheap LLMs
 - [Phase 05-grocery-section-support]: Default project for listSections is 'shopping' (grocery-focused use case); section_id is optional in create-task for backward compatibility
 - [Phase 05-grocery-section-support P02]: Shopping DO/DO NOT table created (none existed); QUICKSTART Grocery Sections kept to 4 lines under 8-line convention
+- [Phase 06-poll-to-grocery-pipeline P01]: Pipeline stops at meal plan update if no recipe match — never infers ingredients from meal name; recipe match enables auto-add without confirmation
 
 ### Roadmap Evolution
 
@@ -70,8 +72,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-23
-Stopped at: Completed 05-02-PLAN.md
-Resume file: None — Phase 05 complete
+Stopped at: Completed 06-01-PLAN.md
+Resume file: None — Phase 06 complete
 
 ---
-*Last updated: 2026-02-23 (05-02 complete)*
+*Last updated: 2026-02-23 (06-01 complete)*
