@@ -6,6 +6,7 @@
 const { fetchTasks } = require('./helpers/fetch-tasks');
 const { createTask } = require('./helpers/create-task');
 const { completeTask } = require('./helpers/complete-task');
+const { listSections } = require('./helpers/list-sections');
 
 module.exports = {
   task: 'todoist',
@@ -26,12 +27,16 @@ module.exports = {
         if (!params.taskId) return 'taskId is required to complete a task';
         return null;
       }
+    },
+    'sections': {
+      helpers: ['listSections']
     }
   },
   helpers: {
     'fetchTasks': fetchTasks,
     'createTask': createTask,
-    'completeTask': completeTask
+    'completeTask': completeTask,
+    'listSections': listSections
   },
   cache: {
     ttl: 300000,  // 5 minutes
