@@ -70,7 +70,10 @@ Plans:
   1. Agent can call `task todoist` with a `section` parameter and the item lands in the correct Todoist section
   2. Agent can list all available sections in the shopping Todoist project
   3. Recipe ingredients (item names only, no quantities) can be added to the grocery list in one operation
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 05-01-PLAN.md — Todoist section API support (list-sections helper, create-task section_id, config intent)
+- [ ] 05-02-PLAN.md — Agent instructions for grocery sections and recipe-to-grocery workflow
 
 ### Phase 6: Poll-to-Grocery Pipeline
 **Goal**: A dinner poll resolving automatically updates the meal plan and populates the grocery list
@@ -101,5 +104,5 @@ Plans:
 | 2. Telegram Poll | v3.0 | 3/3 | Complete | 2026-02-16 |
 | 3. Local Config | v3.0 | 2/2 | Complete | 2026-02-17 |
 | 4. Recipe Library | v4.0 | 2/2 | Complete | 2026-02-22 |
-| 5. Grocery Section Support | v4.0 | 0/TBD | Not started | - |
+| 5. Grocery Section Support | v4.0 | 0/2 | Planning | - |
 | 6. Poll-to-Grocery Pipeline | v4.0 | 0/TBD | Not started | - |
