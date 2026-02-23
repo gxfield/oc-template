@@ -43,7 +43,7 @@
 ### v4.0 Recipe, Grocery & Poll Improvements
 
 - [x] **Phase 4: Recipe Library** (2/2 plans) — completed 2026-02-22
-- [ ] **Phase 5: Grocery Section Support** - Todoist grocery list with section placement
+- [x] **Phase 5: Grocery Section Support** - Todoist grocery list with section placement (completed 2026-02-23)
 - [ ] **Phase 6: Poll-to-Grocery Pipeline** - End-to-end poll resolution through to grocery list
 
 ## Phase Details
@@ -94,7 +94,7 @@ Plans:
 | 2. Quick Capture | v1.0 | 2/2 | Complete | 2026-02-09 |
 | 3. Meal Planning | v1.0 | 3/3 | Complete | 2026-02-09 |
 | 4. Bill Reminders | 2/2 | Complete   | 2026-02-22 | - |
-| 5. Briefing System | v1.0 | 2/2 | Complete | 2026-02-09 |
+| 5. Briefing System | 2/2 | Complete   | 2026-02-23 | 2026-02-09 |
 | 6. Daily Morning Briefing | v1.0 | 2/2 | Complete | 2026-02-10 |
 | 7. Task Infrastructure | v2.0 | 2/2 | Complete | 2026-02-11 |
 | 8. Cache Layer | v2.0 | 2/2 | Complete | 2026-02-11 |

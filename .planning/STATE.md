@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-02-22)
 ## Current Position
 
 Phase: 5 — Grocery Section Support
-Plan: 1 of 2 complete
-Status: In progress — 05-01 complete, 05-02 pending
-Last activity: 2026-02-23 — 05-01 complete: listSections helper + section_id in create-task
+Plan: 2 of 2 complete
+Status: Complete — Phase 05 all plans done
+Last activity: 2026-02-23 — 05-02 complete: grocery section + recipe-to-grocery documentation in TOOLS.md and QUICKSTART.md
 
 ## Performance Metrics
 
@@ -40,6 +40,7 @@ Last activity: 2026-02-23 — 05-01 complete: listSections helper + section_id i
 | Phase 04-recipe-library P01 | 2 | 1 min | 0.5 min |
 | Phase 04-recipe-library P02 | 1 | 1 tasks | 1 files |
 | Phase 05-grocery-section-support P01 | 1 | 2 tasks | 3 files |
+| Phase 05-grocery-section-support P02 | 2 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -49,6 +50,7 @@ All decisions logged in PROJECT.md Key Decisions table.
 - [Phase 04-recipe-library P01]: Recipe tags are freeform strings; "save recipe" routes to favourites.md, "create recipe" writes to recipes/ directory
 - [Phase 04-recipe-library]: Use keyword exclusion to filter dinner recipes in RSS briefing — simpler and more reliable for cheap LLMs
 - [Phase 05-grocery-section-support]: Default project for listSections is 'shopping' (grocery-focused use case); section_id is optional in create-task for backward compatibility
+- [Phase 05-grocery-section-support P02]: Shopping DO/DO NOT table created (none existed); QUICKSTART Grocery Sections kept to 4 lines under 8-line convention
 
 ### Roadmap Evolution
 
@@ -68,8 +70,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-23
-Stopped at: Completed 05-01-PLAN.md
-Resume file: .planning/phases/05-grocery-section-support/05-02-PLAN.md
+Stopped at: Completed 05-02-PLAN.md
+Resume file: None — Phase 05 complete
 
 ---
-*Last updated: 2026-02-23*
+*Last updated: 2026-02-23 (05-02 complete)*
