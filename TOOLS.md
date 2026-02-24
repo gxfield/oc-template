@@ -989,3 +989,150 @@ These edge cases help distinguish between Quick Capture targets when the trigger
 - `/calendar/config.json` — Calendar ID + timezone
 - `/household/state/config.json` — Command mappings
 - `/household/state/google-calendar-key.json` — Calendar credentials backup
+
+## 🍽️ Weekly Meal Planning System
+
+**Automated workflow** that runs every Thursday at 8:00 AM Pacific to plan next week's weeknight dinners (Monday-Friday) via interactive Telegram polls.
+
+### System Overview
+
+**Location:** `/tasks/meal-planning/`  
+**Documentation:** See `/tasks/meal-planning/README.md` for full details
+
+**Key Features:**
+- Interactive Yes/No polls for dinner recipes
+- Learns preferences via heart emoji reactions
+- Bot acts as tie-breaker
+- Auto-suggests alternatives on "No" votes
+- Announces progress in Telegram
+- Updates `household/meals/this-week.md` automatically
+
+### How It Works
+
+1. **Thursday 8 AM Pacific** - Cron job triggers weekly planner
+2. **Announcement** - Bot sends "Time to plan next week's dinners!"
+3. **For each weeknight (Mon-Fri):**
+   - Selects random dinner recipe (weighted by ❤️ reactions)
+   - Creates Yes/No poll
+   - Waits 1 hour for votes
+   - **Yes wins** → Confirms and moves to next day
+   - **Tie** → Bot breaks tie in favor of Yes
+   - **No wins** → Suggests alternative recipe and polls again
+4. **Updates meal plan** - Writes to `household/meals/this-week.md`
+5. **Final announcement** - "All done! Next week's dinners are set."
+
+### Recipe Preference Tracking
+
+The system learns what you like via heart emoji (❤️) reactions on recipe messages:
+
+- **Heart a recipe** → Gets 3x weight in future selections
+- **Preferences stored** in `memory/recipe-preferences.json`
+- **Manual heart tracking:** `node tasks/meal-planning/recipe-selector.js heart <fileName>`
+
+### Cron Setup
+
+**To install the weekly planner:**
+
+```bash
+# Open crontab
+crontab -e
+
+# Add one of these lines (based on PST or PDT):
+
+# Pacific Standard Time (November - March): Thursday 8 AM PST = 16:00 UTC
+0 16 * * 4 /data/.openclaw/workspace-home-assistant/tasks/meal-planning/run-weekly-planner.sh
+
+# Pacific Daylight Time (March - November): Thursday 8 AM PDT = 15:00 UTC
+0 15 * * 4 /data/.openclaw/workspace-home-assistant/tasks/meal-planning/run-weekly-planner.sh
+```
+
+**Note:** Adjust twice a year when DST changes (spring forward, fall back).
+
+### Manual Testing
+
+```bash
+# Test recipe selection
+node tasks/meal-planning/recipe-selector.js select
+
+# Test single day poll workflow
+node tasks/meal-planning/poll-workflow.js test-single Monday
+
+# Run full week planning (dry run)
+node tasks/meal-planning/weekly-planner.js
+
+# View current preferences
+node tasks/meal-planning/recipe-selector.js prefs
+
+# View all dinner recipes
+node tasks/meal-planning/recipe-selector.js list
+```
+
+### Troubleshooting
+
+**Poll stuck or not creating:**
+```bash
+# Check current poll state
+cat memory/poll-state.json
+
+# Clear stuck poll
+echo '{"activePoll": null}' > memory/poll-state.json
+```
+
+**Cron not running:**
+```bash
+# Check cron logs
+grep CRON /var/log/syslog | tail -20
+
+# Verify script is executable
+ls -l tasks/meal-planning/run-weekly-planner.sh
+
+# Check meal planner logs
+tail -f logs/meal-planner.log
+```
+
+**Recipe selection issues:**
+```bash
+# Verify dinner recipes are detected
+node tasks/meal-planning/recipe-selector.js list | grep -c fileName
+
+# Should return 23 (current count of dinner recipes)
+```
+
+### Files
+
+| File | Purpose |
+|---|---|
+| `tasks/meal-planning/recipe-selector.js` | Filters and selects dinner recipes with preference weighting |
+| `tasks/meal-planning/poll-workflow.js` | Creates polls, waits for votes, handles results |
+| `tasks/meal-planning/update-meal-plan.js` | Updates `household/meals/this-week.md` |
+| `tasks/meal-planning/weekly-planner.js` | Main orchestrator (runs all steps) |
+| `tasks/meal-planning/run-weekly-planner.sh` | Cron launcher script |
+| `tasks/meal-planning/README.md` | Full system documentation |
+| `memory/recipe-preferences.json` | Heart reaction tracking |
+| `memory/poll-state.json` | Active poll state |
+| `logs/meal-planner.log` | Workflow execution logs |
+
+### Adding New Recipes
+
+To add a recipe to the pool:
+
+1. Create `.md` file in `household/meals/recipes/`
+2. Add frontmatter with `tags:` including `- dinner`
+3. Recipe will automatically appear in future polls
+
+**Example:**
+```markdown
+---
+title: New Recipe Name
+servings: 4
+prep_time: 20 min
+cook_time: 30 min
+tags:
+  - dinner
+  - chicken
+  - italian
+---
+
+## Ingredients
+...
+```
