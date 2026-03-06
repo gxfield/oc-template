@@ -41,7 +41,7 @@ async function createRecipePoll(recipe) {
     parameters: {
       question: `Should we have ${recipe.title} for dinner?`,
       options: 'Yes,No',
-      timeout: 60 // 1 hour
+      timeout: 15 // 15 minutes
     }
   };
 
@@ -56,79 +56,65 @@ async function createRecipePoll(recipe) {
 
 /**
  * Wait for poll to finish and get result
- * Polls every 5 seconds for 1 hour + 5 min grace period
+ * Sleeps for the configured timeout, then fetches results directly from Telegram API
  * @returns {Promise<object>} { winner: 'Yes'|'No'|'Tie', votes: {...} }
  */
 async function waitForPollResult() {
   const fs = require('fs');
   const path = require('path');
+  const { getPollResults } = require('../poll/helpers/get-poll-results');
   const pollStateFile = path.join(__dirname, '../../memory/poll-state.json');
   
-  const maxWaitSeconds = (60 * 60) + (5 * 60); // 1 hour + 5 min grace
-  const pollIntervalSeconds = 5;
-  let elapsed = 0;
-
-  while (elapsed < maxWaitSeconds) {
-    await sleep(pollIntervalSeconds * 1000);
-    elapsed += pollIntervalSeconds;
-
-    // Check if poll has finished via check-timeout (handles auto-resolution)
-    const checkRequest = {
-      task: 'poll',
-      intent: 'check-timeout',
-      parameters: {}
-    };
-
-    const checkResult = await runTask(checkRequest);
-
-    if (checkResult.data && checkResult.data.timedOut) {
-      // Poll auto-resolved due to timeout
-      return {
-        winner: checkResult.data.winner,
-        votes: {},
-        timedOut: true
-      };
-    }
-
-    // Also check poll state directly to see if all users voted
-    try {
-      const stateData = fs.readFileSync(pollStateFile, 'utf8');
-      const state = JSON.parse(stateData);
-      
-      if (!state.activePoll || state.activePoll.status !== 'open') {
-        // Poll was closed - determine winner from votes
-        if (state.activePoll && state.activePoll.votes) {
-          const votes = state.activePoll.votes;
-          const voteCounts = {};
-          
-          for (const optionId of Object.values(votes)) {
-            voteCounts[optionId] = (voteCounts[optionId] || 0) + 1;
-          }
-          
-          // Find winner
-          const maxCount = Math.max(...Object.values(voteCounts), 0);
-          const leadingOptions = Object.keys(voteCounts)
-            .filter(optionId => voteCounts[optionId] === maxCount)
-            .map(id => parseInt(id));
-          
-          if (leadingOptions.length === 1) {
-            const winnerOption = state.activePoll.options[leadingOptions[0]];
-            return { winner: winnerOption, votes: voteCounts, timedOut: false };
-          } else if (leadingOptions.length > 1) {
-            // Tie
-            return { winner: 'Tie', votes: voteCounts, timedOut: false };
-          }
-        }
-        
-        // Closed with no votes
-        return { winner: 'No', votes: {}, timedOut: false };
-      }
-    } catch (err) {
-      // State file issues - continue waiting
-    }
+  // Read the active poll state to get timeout duration and poll details
+  let pollState;
+  try {
+    const stateData = fs.readFileSync(pollStateFile, 'utf8');
+    pollState = JSON.parse(stateData);
+  } catch (err) {
+    throw new Error(`Failed to read poll state: ${err.message}`);
   }
-
-  throw new Error('Poll timeout exceeded maximum wait time');
+  
+  if (!pollState.activePoll) {
+    throw new Error('No active poll found in state');
+  }
+  
+  const { chatId, messageId, timeoutMinutes, options } = pollState.activePoll;
+  
+  // Wait for the configured timeout period
+  const timeoutMs = timeoutMinutes * 60 * 1000;
+  console.log(`Waiting ${timeoutMinutes} minutes for poll to complete...`);
+  await sleep(timeoutMs);
+  
+  // Fetch actual results from Telegram by stopping the poll
+  console.log('Timeout reached, fetching results from Telegram...');
+  const telegramResult = await getPollResults(chatId, messageId);
+  
+  console.log(`Telegram results: ${JSON.stringify(telegramResult)}`);
+  
+  // Map Telegram option texts back to our Yes/No format
+  // (assuming the poll was created with options[0] = "Yes", options[1] = "No")
+  const yesVotes = telegramResult.votes[options[0]] || 0;
+  const noVotes = telegramResult.votes[options[1]] || 0;
+  
+  if (telegramResult.tie) {
+    return {
+      winner: 'Tie',
+      votes: { Yes: yesVotes, No: noVotes },
+      timedOut: true
+    };
+  } else if (telegramResult.winner === options[0]) {
+    return {
+      winner: 'Yes',
+      votes: { Yes: yesVotes, No: noVotes },
+      timedOut: true
+    };
+  } else {
+    return {
+      winner: 'No',
+      votes: { Yes: yesVotes, No: noVotes },
+      timedOut: true
+    };
+  }
 }
 
 /**
@@ -138,6 +124,10 @@ async function waitForPollResult() {
  * @returns {Promise<object>} { recipe, result }
  */
 async function pollForMeal(dayName, excludeRecipes = []) {
+  const fs = require('fs');
+  const path = require('path');
+  const { clearActivePoll } = require('../poll/helpers/poll-state');
+  
   const recipes = getDinnerRecipes();
   let attempts = 0;
   const maxAttempts = 5; // Prevent infinite loops
@@ -160,6 +150,9 @@ async function pollForMeal(dayName, excludeRecipes = []) {
     // Wait for result
     const result = await waitForPollResult();
     console.log(`[${dayName}] Poll finished: ${result.winner} (Yes: ${result.votes.Yes || 0}, No: ${result.votes.No || 0})`);
+
+    // Clear poll state after getting result
+    clearActivePoll();
 
     if (result.winner === 'Yes') {
       // Winner! Return this recipe
