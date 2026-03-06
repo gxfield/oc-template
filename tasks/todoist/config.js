@@ -16,6 +16,7 @@ module.exports = {
     },
     'add': {
       helpers: ['createTask', 'fetchTasks'],
+      noCache: true, // write operation — never cache
       validate: (params) => {
         if (!params.content) return 'content is required to create a task';
         return null;
@@ -23,6 +24,7 @@ module.exports = {
     },
     'done': {
       helpers: ['completeTask'],
+      noCache: true, // write operation — never cache
       validate: (params) => {
         if (!params.taskId) return 'taskId is required to complete a task';
         return null;

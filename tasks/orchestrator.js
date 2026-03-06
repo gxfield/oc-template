@@ -55,8 +55,9 @@ function createRunner(taskConfig) {
         }
       }
 
-      // Step 3: Cache check (if task has cache config)
-      if (taskConfig.cache) {
+      // Step 3: Cache check (if task has cache config and intent allows caching)
+      const cachingEnabled = taskConfig.cache && !intentConfig.noCache;
+      if (cachingEnabled) {
         const cacheKey = cache.buildKey(
           task,
           intent,
@@ -104,8 +105,8 @@ function createRunner(taskConfig) {
       // Step 5: Wrap in LLMPayload
       const payload = createLLMPayload(task, intent, parameters, previousResult);
 
-      // Step 6: Cache store (if task has cache config and result is not an error)
-      if (taskConfig.cache && !payload.meta.error) {
+      // Step 6: Cache store (if task has cache config, intent allows caching, and result is not an error)
+      if (cachingEnabled && !payload.meta.error) {
         const cacheKey = cache.buildKey(
           task,
           intent,
